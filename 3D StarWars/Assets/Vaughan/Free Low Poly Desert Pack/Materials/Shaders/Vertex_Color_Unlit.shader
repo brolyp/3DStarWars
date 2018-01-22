@@ -1,4 +1,6 @@
-﻿Shader "Custom/Vertex_Color_Unlit"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/Vertex_Color_Unlit"
 {
 	Properties
 	{
@@ -34,7 +36,7 @@
 			v2f vert (appdata v)
 			{
 				v2f o;
-				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);				
+				o.vertex = UnityObjectToClipPos(v.vertex);				
 	            o.color = v.color * _Color;	
 				return o;
 			}
