@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
+- path: Assets/Vaughan/Testing all the things/test scene.unity
+=======
 - path: Assets/James/James.unity
+>>>>>>> 65ce801b4d86e390fb4e698fc34b4d77308f0347
   isLoaded: 1
   isActive: 1
