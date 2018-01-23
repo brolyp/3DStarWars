@@ -1,1 +1,4 @@
-sceneSetups: []
+sceneSetups:
+- path: Assets/Vaughan/Testing all the things/test scene.unity
+  isLoaded: 1
+  isActive: 1
