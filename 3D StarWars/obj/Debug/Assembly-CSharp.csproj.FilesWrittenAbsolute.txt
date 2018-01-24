@@ -21,3 +21,5 @@
 /Users/J/Dev/538/3DStarWars/3D StarWars/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/J/Dev/538/3DStarWars/3D StarWars/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/J/Dev/538/3DStarWars/3D StarWars/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/J/Dev/538/3DStarWars/3D StarWars/Temp/bin/Debug/TextMeshPro-2017.3-1.0.56-Editor.dll
+/Users/J/Dev/538/3DStarWars/3D StarWars/Temp/bin/Debug/TextMeshPro-2017.3-1.0.56-Runtime.dll
