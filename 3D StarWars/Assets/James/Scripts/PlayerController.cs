@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamageable, IKillable {
-	private int LIGHT_SABER = 3, GROUND_CHECK = 2, CAMERA = 0, AIM_POINT = 5, BULLET_SPAWN = 4;
+	private int LIGHT_SABER = 3, GROUND_CHECK = 2, CAMERA = 0, BULLET_SPAWN = 4;
 	private enum SaberState {Idle, Blocking, Shooting};
 
 	public float PlayerRotSpeed = 500.0f;
@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour, IDamageable, IKillable {
 	public Transform BulletSpawn;
 	public Transform AimPoint;
 
-	private CharacterController _controller;
 	private Vector3 _cameraOffset;
 	private LayerMask _groundLayer;
 	private Vector3 _velocity;
@@ -24,21 +23,20 @@ public class PlayerController : MonoBehaviour, IDamageable, IKillable {
 	private Transform _camera;
 	private Transform _groundCheck;
 	private Transform _saber;
-	private SaberState _saberState;
 	private Animator _saberAnimator;
+	//private Transform _bulletSpawn;
 
 
 	// Use this for initialization
 	void Start () {
-		_saberState = SaberState.Idle;
 		_cameraOffset = new Vector3(transform.position.x, transform.position.y + 5.0f, transform.position.z - 8.0f);
-		_controller = GetComponent<CharacterController>();
 		_gravity = Physics.gravity.y;
 		_groundCheck = transform.GetChild(GROUND_CHECK);
 		_groundLayer = 1<<LayerMask.NameToLayer("Ground");
 		_saber = transform.GetChild(LIGHT_SABER);
 		_saberAnimator = _saber.GetComponent<Animator>();
 		_camera = transform.GetChild (CAMERA);
+		//_bulletSpawn = transform.GetChild (BULLET_SPAWN);
 		Debug.Log(_groundLayer);
 		Debug.Log (_groundCheck);
 	}

@@ -7,7 +7,7 @@ public class BulletControl : MonoBehaviour {
 	private Vector3 _velocity;
 	// Use this for initialization
 	void Start () {
-		_velocity = BulletSpeed * transform.forward;
+		_velocity = Vector3.forward * BulletSpeed;
 	}
 	
 	// Update is called once per frame
