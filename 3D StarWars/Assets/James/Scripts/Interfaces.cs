@@ -7,5 +7,5 @@ public interface IKillable {
 }
 
 public interface IDamageable {
-	void Damage(float damage);
+	void Damage(int damage);
 }

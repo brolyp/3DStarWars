@@ -23,14 +23,17 @@ public class PlayerController : MonoBehaviour, IDamageable, IKillable {
 	private Transform _camera;
 	private Transform _groundCheck;
 	private Transform _saber;
+	private SaberControl _saberControl;
 	private Animator _saberAnimator;
+	private CharacterController _controller;
 	//private Transform _bulletSpawn;
 
 
 	// Use this for initialization
 	void Start () {
-		_cameraOffset = new Vector3(transform.position.x, transform.position.y + 5.0f, transform.position.z - 8.0f);
+		_cameraOffset = new Vector3(transform.position.x, transform.position.y + 5.0f, transform.position.z + 8.0f);
 		_gravity = Physics.gravity.y;
+		_controller = GetComponent<CharacterController>();
 		_groundCheck = transform.GetChild(GROUND_CHECK);
 		_groundLayer = 1<<LayerMask.NameToLayer("Ground");
 		_saber = transform.GetChild(LIGHT_SABER);
@@ -63,7 +66,9 @@ public class PlayerController : MonoBehaviour, IDamageable, IKillable {
 			_velocity.y = 0f;
 		}
 		move.y = _velocity.y;
-		transform.Translate(move * Time.deltaTime);
+		//transform.Translate(move * Time.deltaTime);
+		_controller.Move(move * Time.deltaTime);
+
 		//Debug.DrawRay(transform.position + transform.forward, transform.forward, Color.green);
 		//Debug.DrawRay (BulletSpawn.transform.position + BulletSpawn.transform.forward, BulletSpawn.transform.forward, Color.green);
 		Transform aim = BulletSpawn.transform;
@@ -78,7 +83,8 @@ public class PlayerController : MonoBehaviour, IDamageable, IKillable {
 	public void Kill(){
 	}
 
-	public void Damage(float damage){
+	public void Damage(int damage){
+		_saberControl.Damage (damage);
 	}
 
 	private IEnumerator Shoot(){
