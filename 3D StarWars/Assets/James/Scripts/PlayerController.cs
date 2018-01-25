@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour, IDamageable, IKillable {
 		_camera.LookAt(transform.position);
 			
 		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * PlayerMoveSpeed;
+		move = transform.rotation * move;
 
 		_velocity.y += _gravity * Time.deltaTime;
 
