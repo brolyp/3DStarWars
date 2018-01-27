@@ -60,8 +60,8 @@ public class PlayerController : MonoBehaviour, IDamageable, IKillable, IHealable
 		float deltaRotate = Input.GetAxis ("Mouse X") * PlayerRotSpeed;
 		transform.Rotate (0, deltaRotate, 0);
 		_cameraOffset = Quaternion.AngleAxis (Input.GetAxis ("Mouse X") * PlayerRotSpeed, Vector3.up) * _cameraOffset;
-		_camera.position = transform.position + _cameraOffset; 
-		_camera.LookAt(transform.position);
+		//_camera.position = transform.position + _cameraOffset; 
+		//_camera.LookAt(transform.position);
 			
 		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * PlayerMoveSpeed;
 		move = transform.rotation * move;
