@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamageable, IKillable {
+public class PlayerController : MonoBehaviour, IDamageable, IKillable, IHealable {
 	private int LIGHT_SABER = 3, GROUND_CHECK = 2, CAMERA = 0, BULLET_SPAWN = 4;
 	private enum SaberState {Idle, Blocking, Shooting};
 
@@ -31,12 +31,14 @@ public class PlayerController : MonoBehaviour, IDamageable, IKillable {
 
 	// Use this for initialization
 	void Start () {
+		//TODO put this and scrollwheel change in camera
 		_cameraOffset = new Vector3(transform.position.x, transform.position.y + 5.0f, transform.position.z + 8.0f);
 		_gravity = Physics.gravity.y;
 		_controller = GetComponent<CharacterController>();
 		_groundCheck = transform.GetChild(GROUND_CHECK);
 		_groundLayer = 1<<LayerMask.NameToLayer("Ground");
 		_saber = transform.GetChild(LIGHT_SABER);
+		_saberControl = _saber.gameObject.GetComponent<SaberControl>();
 		_saberAnimator = _saber.GetComponent<Animator>();
 		_camera = transform.GetChild (CAMERA);
 		//_bulletSpawn = transform.GetChild (BULLET_SPAWN);
@@ -46,7 +48,14 @@ public class PlayerController : MonoBehaviour, IDamageable, IKillable {
 	
 	// Update is called once per frame
 	void Update() {
-		
+
+		if (Input.GetKeyDown(KeyCode.P)){
+			Damage(10);
+		}
+		if (Input.GetKeyDown(KeyCode.O)){
+			Heal(10);
+		}
+
 		_isGrounded = Physics.CheckSphere(_groundCheck.position, GroundDistance, _groundLayer, QueryTriggerInteraction.Ignore);
 		float deltaRotate = Input.GetAxis ("Mouse X") * PlayerRotSpeed;
 		transform.Rotate (0, deltaRotate, 0);
@@ -82,10 +91,16 @@ public class PlayerController : MonoBehaviour, IDamageable, IKillable {
 	}
 
 	public void Kill(){
+		Debug.Log ("Player has been Killed!");
+		Destroy (this.gameObject, 0.0f);
 	}
 
 	public void Damage(int damage){
 		_saberControl.Damage (damage);
+	}
+
+	public void Heal(int heal){
+		_saberControl.Heal (heal);
 	}
 
 	private IEnumerator Shoot(){

@@ -9,3 +9,7 @@ public interface IKillable {
 public interface IDamageable {
 	void Damage(int damage);
 }
+
+public interface IHealable {
+	void Heal (int heal);
+}
