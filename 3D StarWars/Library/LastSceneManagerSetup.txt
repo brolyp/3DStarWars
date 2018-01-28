@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Dave/Dave.unity
+=======
+- path: Assets/Vaughan/Tatooine.unity
+>>>>>>> a0f2d62ae88bcd1621204bdbfa6def824de05f05
   isLoaded: 1
   isActive: 1
