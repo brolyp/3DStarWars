@@ -408,13 +408,13 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: e5235b022ea1102428fa2a23d984f3ba, type: 2}
-  - {fileID: 2100000, guid: 4b33ccc249e1c354187713d72839aa51, type: 2}
-  - {fileID: 2100000, guid: da20e6f6b83a4c74e8d13ad819e481c4, type: 2}
+  - {fileID: 2100000, guid: 95645338b44e441fcb9e8f7402de44bb, type: 2}
+  - {fileID: 2100000, guid: dc304dc879bb943d99f0b6f54de0a7db, type: 2}
+  - {fileID: 2100000, guid: dc304dc879bb943d99f0b6f54de0a7db, type: 2}
   - {fileID: 2100000, guid: 193c4046419e64a5e9c83f49826d9493, type: 2}
   - {fileID: 2100000, guid: 6f974c08a1a0547ba99426e8477e7d5d, type: 2}
   - {fileID: 2100000, guid: b5b1e1892bb4444a9bc8308520211700, type: 2}
-  - {fileID: 2100000, guid: 8a307cbad3ec59247aeed213ffb86144, type: 2}
+  - {fileID: 2100000, guid: 95645338b44e441fcb9e8f7402de44bb, type: 2}
   - {fileID: 2100000, guid: cd845de52db9a4e7989731ce17840485, type: 2}
   - {fileID: 2100000, guid: a1490c8f4f898496382c7fc2c9520d69, type: 2}
   - {fileID: 2100000, guid: 10c7a587c5b5c4a509ac5f92be1b6b3e, type: 2}
