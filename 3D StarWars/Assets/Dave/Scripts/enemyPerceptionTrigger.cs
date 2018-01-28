@@ -20,7 +20,7 @@ public class enemyPerceptionTrigger : MonoBehaviour {
 		
 	}
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if(other.tag == "Player")
         {

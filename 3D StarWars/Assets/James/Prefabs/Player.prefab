@@ -240,7 +240,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1860815939879038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4872871209156606}
@@ -253,7 +253,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1637574186655144}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4008387702935900}
@@ -285,7 +285,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1425107527335752}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.8, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0.8, y: -0.2, z: 0}
   m_LocalScale: {x: 0.2, y: 1, z: 0.20000003}
   m_Children:
   - {fileID: 4521726865720416}
@@ -587,8 +587,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45eab66a806724678961f89fbb20dda7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerRotSpeed: 5
-  PlayerMoveSpeed: 10
+  PlayerRotSpeed: 1
+  PlayerMoveSpeed: 7
   JumpHeight: 2
   GroundDistance: 0.61
   SaberSpeed: 5
@@ -607,9 +607,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51544ab5d5d4407d824e1750145e5f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: 5
+  RotationSpeed: 1
   yOffset: 3
-  zOffset: -8
+  zOffset: 0
 --- !u!114 &114469094435126690
 MonoBehaviour:
   m_ObjectHideFlags: 1

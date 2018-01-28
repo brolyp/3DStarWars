@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour {
 	Vector3 _offset;
-	Vector3 _parentPosition;
-	public float RotationSpeed;
-
+	Transform _camera;
+	PlayerControl _player;
+	float rotSpeed;
 	public float yOffset = 2.0f;
-	public float zOffset = 4.0f;
+	public float zOffset = 0.0f;
+	private float _rotSpeed;
 
 	// Use this for initialization
 	void Start () {
-		_parentPosition = transform.parent.position;
-		_offset = new Vector3(_parentPosition.x, _parentPosition.y + yOffset, _parentPosition.z + zOffset);
+		_camera = transform.GetChild(0);
+		_player = GetComponent < PlayerControl> ();
+		_rotSpeed = _player.PlayerRotSpeed;
+		_offset = new Vector3(0, yOffset, zOffset);
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		_parentPosition = transform.parent.position;
-		_offset = Quaternion.AngleAxis (Input.GetAxis ("Mouse X") * RotationSpeed, Vector3.up) * _offset;
-		transform.position = _parentPosition + _offset; 
+	void LateUpdate () {
+		//Vector3 cPos = _camera.localPosition;
+		_offset = Quaternion.AngleAxis (Input.GetAxis ("Mouse X") * _rotSpeed, Vector3.up) * _offset;
+		_camera.position = transform.position + _offset; 
 		transform.LookAt(transform.position);
 	}
 }

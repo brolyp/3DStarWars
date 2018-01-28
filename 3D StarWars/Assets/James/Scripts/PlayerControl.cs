@@ -46,7 +46,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 	
 	// Update is called once per frame
 	void Update() {
-
+		_isGrounded = Physics.CheckSphere(_groundCheck.position, GroundDistance, _groundLayer, QueryTriggerInteraction.Ignore);
 		float deltaRotate = Input.GetAxis ("Mouse X") * PlayerRotSpeed;
 		transform.Rotate (0, deltaRotate, 0);
 
@@ -54,7 +54,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		move = transform.rotation * move;
 
 		if (Input.GetKeyDown(KeyCode.Space)) {
-			Jump ();
+			_velocity.y += Mathf.Sqrt (JumpHeight * -2f * _gravity);
 		}
 		_velocity.y += _gravity * Time.deltaTime;
 		if (_isGrounded && _velocity.y < 0) {
@@ -74,14 +74,6 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		if (Input.GetKeyDown(KeyCode.O)){
 			Heal(10);
 		}
-	}
-
-
-
-
-	private void Jump(){
-		_isGrounded = Physics.CheckSphere(_groundCheck.position, GroundDistance, _groundLayer, QueryTriggerInteraction.Ignore);
-		_velocity.y += Mathf.Sqrt (JumpHeight * -2f * _gravity);
 	}
 
 	public void Kill(){
