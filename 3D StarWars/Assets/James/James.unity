@@ -311,6 +311,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114217786153564598, guid: 3697119d1cd3442cebb3e5f77789bd4b,
+        type: 2}
+      propertyPath: PlayerRotSpeed
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114424915009876660, guid: 3697119d1cd3442cebb3e5f77789bd4b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3697119d1cd3442cebb3e5f77789bd4b, type: 2}
@@ -333,8 +338,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yOffset: 3
   zOffset: -5
-  maxZOffset: -15
-  minZOffset: -2
+  minZOffset: -9
+  maxZOffset: -4
 --- !u!1 &1878591365
 GameObject:
   m_ObjectHideFlags: 0

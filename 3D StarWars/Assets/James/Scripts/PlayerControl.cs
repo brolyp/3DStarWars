@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
-	private int LIGHT_SABER = 3, GROUND_CHECK = 2, CAMERA = 0, BULLET_SPAWN = 4;
+	private int MESH = 1, LIGHT_SABER = 3, GROUND_CHECK = 2, CAMERA = 0, BULLET_SPAWN = 4;
 	private enum SaberState {Idle, Blocking, Shooting};
 
 	public float PlayerRotSpeed = 500.0f;
@@ -15,12 +15,14 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 	public Transform BulletSpawn;
 	public Transform AimPoint;
 
+	private bool _crouch;
+	private Transform _mesh;
+	private Vector3 _meshDefaultScale;
 	private Vector3 _cameraOffset;
 	private LayerMask _groundLayer;
 	private Vector3 _velocity;
 	private float _gravity;
 	private bool _isGrounded;
-	private Transform _camera;
 	private Transform _groundCheck;
 	private Transform _saber;
 	private SaberControl _saberControl;
@@ -31,6 +33,9 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 
 	// Use this for initialization
 	void Start () {
+		_mesh = transform.GetChild (MESH);
+		_meshDefaultScale = _mesh.localScale;
+		_crouch = false;
 		_gravity = Physics.gravity.y;
 		_controller = GetComponent<CharacterController>();
 		_groundCheck = transform.GetChild(GROUND_CHECK);
@@ -38,15 +43,29 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		_saber = transform.GetChild(LIGHT_SABER);
 		_saberControl = _saber.gameObject.GetComponent<SaberControl>();
 		_saberAnimator = _saber.GetComponent<Animator>();
-		_camera = transform.GetChild (CAMERA);
 		//_bulletSpawn = transform.GetChild (BULLET_SPAWN);
-		Debug.Log(_groundLayer);
-		Debug.Log (_groundCheck);
+		//Debug.Log(_groundLayer);
+		//Debug.Log (_groundCheck);
 	}
 	
 	// Update is called once per frame
 	void Update() {
+		_controller.height = 1f;
 		_isGrounded = Physics.CheckSphere(_groundCheck.position, GroundDistance, _groundLayer, QueryTriggerInteraction.Ignore);
+		_mesh.localScale = new Vector3 (_meshDefaultScale.x, _meshDefaultScale.y, _meshDefaultScale.z);
+		_mesh.localPosition = new Vector3 (0, 0, 0);
+		if (_crouch) {
+			if (!Input.GetKey (KeyCode.C)) {
+				_crouch = false;
+			} else {
+				_controller.height = .5f;
+				_mesh.localPosition = new Vector3 (0, -.25f, 0);
+				_mesh.localScale = new Vector3 (_meshDefaultScale.x, _meshDefaultScale.y * .5f, _meshDefaultScale.z);
+			}
+
+		} 
+			
+
 		float deltaRotate = Input.GetAxis ("Mouse X") * PlayerRotSpeed;
 		transform.Rotate (0, deltaRotate, 0);
 
@@ -67,12 +86,16 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		if(Input.GetMouseButtonDown(0) ){
 			StartCoroutine(Shoot ());
 		}
+
+		if(Input.GetKey(KeyCode.C)){
+			_crouch = true;
+		}
 			
 		if (Input.GetKeyDown(KeyCode.P)){
-			Damage(10);
+			Damage(1);
 		}
 		if (Input.GetKeyDown(KeyCode.O)){
-			Heal(10);
+			Heal(1);
 		}
 	}
 

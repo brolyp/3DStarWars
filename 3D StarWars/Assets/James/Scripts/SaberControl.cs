@@ -19,7 +19,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 		_parent = transform.parent.gameObject.GetComponent<PlayerControl>();
 		_initialScale = _mesh.localScale;
 		_initialPosition = _mesh.localPosition;
-		_initialPosition.z += .45f;
+
 		Heal (10);
 
 	}
