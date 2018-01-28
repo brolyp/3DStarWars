@@ -53,7 +53,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * PlayerMoveSpeed;
 		move = transform.rotation * move;
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(KeyCode.Space) && _isGrounded) {
 			_velocity.y += Mathf.Sqrt (JumpHeight * -2f * _gravity);
 		}
 		_velocity.y += _gravity * Time.deltaTime;

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BulletControl : MonoBehaviour {
 	public float BulletSpeed = 12.0f;
+	public Collider thing;
+	int _damage = 10;
 	private Vector3 _velocity;
 	LayerMask damageLayer;
 	// Use this for initialization
@@ -22,8 +24,9 @@ public class BulletControl : MonoBehaviour {
 	OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.layer == damageLayer) {
+			thing = other;
 			IDamageable eControl = other.GetComponent<IDamageable> ();
-			eControl.Damage (1);
+			eControl.Damage (_damage);
 			Destroy (this.gameObject);
 		}
 	}
