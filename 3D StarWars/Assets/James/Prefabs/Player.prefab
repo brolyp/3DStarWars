@@ -123,8 +123,9 @@ GameObject:
   - component: {fileID: 92740924812937382}
   - component: {fileID: 124386642716681484}
   - component: {fileID: 81728204525539462}
+  - component: {fileID: 114424915009876660}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Follow Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -217,7 +218,7 @@ Transform:
   m_LocalScale: {x: 1000, y: 100, z: 1000}
   m_Children: []
   m_Father: {fileID: 4872871209156606}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4458219162913772
 Transform:
@@ -243,7 +244,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4872871209156606}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4655841564974318
 Transform:
@@ -287,8 +288,8 @@ Transform:
   m_LocalPosition: {x: 0.8, y: -0.3, z: 0}
   m_LocalScale: {x: 0.2, y: 1, z: 0.20000003}
   m_Children:
-  - {fileID: 4374693959622302}
   - {fileID: 4521726865720416}
+  - {fileID: 4374693959622302}
   m_Father: {fileID: 4655841564974318}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -595,6 +596,20 @@ MonoBehaviour:
     type: 2}
   BulletSpawn: {fileID: 4105618151219568}
   AimPoint: {fileID: 4847704867836794}
+--- !u!114 &114424915009876660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1811801184335754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a51544ab5d5d4407d824e1750145e5f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationSpeed: 5
+  yOffset: 3
+  zOffset: -8
 --- !u!114 &114469094435126690
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -7,7 +7,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 
 	private int MESH = 0;
 	private int _energy;
-	private PlayerController _parent;
+	private PlayerControl _parent;
 	private Transform _mesh;
 	private Vector3 _initialPosition;
 	private Vector3 _initialScale;
@@ -16,7 +16,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 	void Start () {
 		_mesh = transform.GetChild (MESH);
 		_energy = MaxEnergy;		
-		_parent = transform.parent.gameObject.GetComponent<PlayerController>();
+		_parent = transform.parent.gameObject.GetComponent<PlayerControl>();
 		_initialPosition = _mesh.localPosition;
 		_initialScale = _mesh.localScale;
 		Heal (10);
