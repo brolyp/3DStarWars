@@ -19,6 +19,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 		_parent = transform.parent.gameObject.GetComponent<PlayerController>();
 		_initialPosition = _mesh.localPosition;
 		_initialScale = _mesh.localScale;
+		Heal (10);
 
 	}
 	
@@ -45,7 +46,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 		}
 		//Debug.Log ("Energy:" + _energy);
 		float scale = _energy/100f;
-		float pos = scale/2 + 1 - _initialPosition.y;
+		float pos = scale/2 + 1 - .55f;
 		AdjustSaberLength(scale, pos);
 	}
 
@@ -54,5 +55,6 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 		_mesh.transform.localPosition = new Vector3 (_initialPosition.x, pos, _initialPosition.z);
 		_mesh.transform.localScale = new Vector3(_initialScale.x, scale, _initialScale.z);
 	}
+
 }
 	

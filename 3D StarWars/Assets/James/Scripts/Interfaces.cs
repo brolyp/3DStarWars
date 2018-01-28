@@ -13,3 +13,4 @@ public interface IDamageable {
 public interface IHealable {
 	void Heal (int heal);
 }
+	
