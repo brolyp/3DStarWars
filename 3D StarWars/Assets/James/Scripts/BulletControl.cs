@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletControl : MonoBehaviour {
 	public float BulletSpeed = 12.0f;
+	public float ttl = 2.0f;
 	int _damage = 10;
 	private Vector3 _velocity;
 	LayerMask damageLayer;
@@ -11,6 +12,11 @@ public class BulletControl : MonoBehaviour {
 	void Start () {
 		_velocity = Vector3.forward * BulletSpeed;
 		damageLayer = LayerMask.NameToLayer ("Damageable");
+	}
+
+	void Awake()
+	{
+		Destroy (this.gameObject, ttl);
 	}
 	
 	// Update is called once per frame

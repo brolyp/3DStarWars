@@ -7,7 +7,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 
 	private int MESH = 0;
 	private int _energy;
-	private PlayerControl _parent;
+	private IKillable _parent;
 	private Transform _mesh;
 	private Vector3 _initialPosition;
 	private Vector3 _initialScale;
@@ -16,7 +16,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 	void Start () {
 		_mesh = transform.GetChild (MESH);
 		_energy = MaxEnergy;		
-		_parent = transform.parent.gameObject.GetComponent<PlayerControl>();
+		_parent = transform.parent.gameObject.GetComponent<IKillable>();
 		_initialScale = _mesh.localScale;
 		_initialPosition = _mesh.localPosition;
 
@@ -32,7 +32,12 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 		_energy -= damage;
 		//Debug.Log ("Energy:" + _energy);
 		if (_energy < 0) {
-			_parent.Kill ();
+			try{
+				_parent.Kill ();
+			}
+			catch {
+				Debug.Log ("exception caught");
+			}
 		} else {
 			float scale = _energy/100f;
 			float pos = scale/2 + .45f;

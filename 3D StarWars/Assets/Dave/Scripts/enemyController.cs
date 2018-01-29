@@ -75,7 +75,6 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable {
     void NextPoint()
     {
         if (patrolPoints.Length == 0) return;
-        Debug.Log("testing");
         agent.destination = patrolPoints[destPoint].position;
 
         destPoint = (destPoint + 1) % patrolPoints.Length;

@@ -49,9 +49,6 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		_saber = transform.GetChild(LIGHT_SABER);
 		_saberControl = _saber.gameObject.GetComponent<SaberControl>();
 		_saberAnimator = _saber.GetComponent<Animator>();
-		//_bulletSpawn = transform.GetChild (BULLET_SPAWN);
-		//Debug.Log(_groundLayer);
-		//Debug.Log (_groundCheck);
 	}
 	
 	// Update is called once per frame
@@ -124,18 +121,21 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		_shield.localScale = new Vector3(0f,0f,0f);
 	}
 
-	public void Kill(){
+	public 
+	void Kill(){
 		Debug.Log ("Player has been Killed!");
 		Destroy (this.gameObject, 0.0f);
 	}
 
-	public void Damage(int damage){
+	public 
+	void Damage(int damage){
 		if (!_invincible) {
 			_saberControl.Damage (damage);
 		}
 	}
 
-	public void Heal(int heal){
+	public 
+	void Heal(int heal){
 		_saberControl.Heal (heal);
 	}
 
@@ -148,7 +148,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 			BulletSpawn.position,
 			BulletSpawn.rotation);
 
-		Destroy(bullet, 2.0f);
+		//Destroy(bullet, 2.0f); - moved to public float ttl in BulletControl for autonomy
 	}
 		
 }
