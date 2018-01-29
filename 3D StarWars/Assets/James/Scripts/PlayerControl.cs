@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
-	private int MESH = 1, LIGHT_SABER = 2, BULLET_SPAWN = 3, SHIELD = 5;
+public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, IInvincible {
+	private int MESH = 1, LIGHT_SABER = 2, BULLET_SPAWN = 3;
 	private enum SaberState {Idle, Blocking, Shooting};
 
 	public float GravityMod = 1.2f;
@@ -19,7 +19,6 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 	private bool _invincible;
 	private bool _crouch;
 	private Transform _mesh;
-	private Transform _shield;
 	private Vector3 _meshDefaultScale;
 	private Vector3 _cameraOffset;
 	private LayerMask _groundLayer;
@@ -39,8 +38,6 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 
 		_invincible = false;
 		_mesh = transform.GetChild (MESH);
-		_shield = transform.GetChild (SHIELD);
-		_shield.localScale = new Vector3(0f,0f,0f);
 		_meshDefaultScale = _mesh.localScale;
 		_crouch = false;
 		_gravity = Physics.gravity.y * GravityMod;
@@ -53,7 +50,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 	
 	// Update is called once per frame
 	void Update() {
-		_shield.Rotate (new Vector3 (360f,360f,360f) * Time.deltaTime);
+		
 		_controller.height = 1f;
 		_isGrounded = Physics.CheckSphere(transform.position, GroundDistance, _groundLayer, QueryTriggerInteraction.Ignore);
 		_mesh.localScale = new Vector3 (_meshDefaultScale.x, _meshDefaultScale.y, _meshDefaultScale.z);
@@ -93,7 +90,13 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		}
 
 		if(Input.GetKey(KeyCode.Q) ){
-			StartCoroutine(Invincible());
+			IUseable s = GetComponentInChildren<IUseable> ();
+			Debug.Log ("attempting shield");
+			if (s != null) {
+				s.Use ();
+				Debug.Log ("using shield");
+			}
+
 		}
 
 		if(Input.GetKey(KeyCode.C)){
@@ -111,15 +114,6 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		}
 	}
 
-	private IEnumerator Invincible(){
-		_shield.localScale = new Vector3(3.1f,3.1f,3.1f);
-		_invincible = true;
-		Debug.Log ("PARTY");
-		yield return new WaitForSeconds (10f);
-		_invincible = false;
-		Debug.Log ("No More PARTY");
-		_shield.localScale = new Vector3(0f,0f,0f);
-	}
 
 	public 
 	void Kill(){
@@ -137,6 +131,12 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 	public 
 	void Heal(int heal){
 		_saberControl.Heal (heal);
+	}
+
+	public IEnumerator Invincible(float time){
+		_invincible = true;
+		yield return new WaitForSeconds (time);
+		_invincible = false;
 	}
 
 	private IEnumerator Shoot(){
