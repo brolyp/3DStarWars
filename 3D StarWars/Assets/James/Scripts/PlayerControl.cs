@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
-	private int MESH = 1, LIGHT_SABER = 3, GROUND_CHECK = 2, CAMERA = 0, BULLET_SPAWN = 4;
+	private int MESH = 1, LIGHT_SABER = 2, BULLET_SPAWN = 3;
 	private enum SaberState {Idle, Blocking, Shooting};
 
+	public float GravityMod = 1.2f;
 	public float PlayerRotSpeed = 500.0f;
 	public float PlayerMoveSpeed = 10.0f;
 	public float JumpHeight = 20.0f;
@@ -36,9 +37,8 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		_mesh = transform.GetChild (MESH);
 		_meshDefaultScale = _mesh.localScale;
 		_crouch = false;
-		_gravity = Physics.gravity.y;
+		_gravity = Physics.gravity.y * GravityMod;
 		_controller = GetComponent<CharacterController>();
-		_groundCheck = transform.GetChild(GROUND_CHECK);
 		_groundLayer = 1<<LayerMask.NameToLayer("Ground");
 		_saber = transform.GetChild(LIGHT_SABER);
 		_saberControl = _saber.gameObject.GetComponent<SaberControl>();
@@ -51,12 +51,13 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 	// Update is called once per frame
 	void Update() {
 		_controller.height = 1f;
-		_isGrounded = Physics.CheckSphere(_groundCheck.position, GroundDistance, _groundLayer, QueryTriggerInteraction.Ignore);
+		_isGrounded = Physics.CheckSphere(transform.position, GroundDistance, _groundLayer, QueryTriggerInteraction.Ignore);
 		_mesh.localScale = new Vector3 (_meshDefaultScale.x, _meshDefaultScale.y, _meshDefaultScale.z);
 		_mesh.localPosition = new Vector3 (0, 0, 0);
 		if (_crouch) {
 			if (!Input.GetKey (KeyCode.C)) {
 				_crouch = false;
+				//_saberAnimator.CrossFade ("Idle", .5f);
 			} else {
 				_controller.height = .5f;
 				_mesh.localPosition = new Vector3 (0, -.25f, 0);
@@ -88,7 +89,10 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		}
 
 		if(Input.GetKey(KeyCode.C)){
-			_crouch = true;
+			if(!_crouch){
+				_crouch = true;
+				_saberAnimator.Play ("toCrouch");
+			}
 		}
 			
 		if (Input.GetKeyDown(KeyCode.P)){
