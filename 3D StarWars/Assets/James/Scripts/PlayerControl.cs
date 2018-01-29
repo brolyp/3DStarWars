@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
-	private int MESH = 1, LIGHT_SABER = 2, BULLET_SPAWN = 3;
+	private int MESH = 1, LIGHT_SABER = 2, BULLET_SPAWN = 3, SHIELD = 5;
 	private enum SaberState {Idle, Blocking, Shooting};
 
 	public float GravityMod = 1.2f;
@@ -16,8 +16,10 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 	public Transform BulletSpawn;
 	public Transform AimPoint;
 
+	private bool _invincible;
 	private bool _crouch;
 	private Transform _mesh;
+	private Transform _shield;
 	private Vector3 _meshDefaultScale;
 	private Vector3 _cameraOffset;
 	private LayerMask _groundLayer;
@@ -34,7 +36,11 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 
 	// Use this for initialization
 	void Start () {
+
+		_invincible = false;
 		_mesh = transform.GetChild (MESH);
+		_shield = transform.GetChild (SHIELD);
+		_shield.localScale = new Vector3(0f,0f,0f);
 		_meshDefaultScale = _mesh.localScale;
 		_crouch = false;
 		_gravity = Physics.gravity.y * GravityMod;
@@ -50,6 +56,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 	
 	// Update is called once per frame
 	void Update() {
+		_shield.Rotate (new Vector3 (360f,360f,360f) * Time.deltaTime);
 		_controller.height = 1f;
 		_isGrounded = Physics.CheckSphere(transform.position, GroundDistance, _groundLayer, QueryTriggerInteraction.Ignore);
 		_mesh.localScale = new Vector3 (_meshDefaultScale.x, _meshDefaultScale.y, _meshDefaultScale.z);
@@ -57,7 +64,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		if (_crouch) {
 			if (!Input.GetKey (KeyCode.C)) {
 				_crouch = false;
-				//_saberAnimator.CrossFade ("Idle", .5f);
+				_saberAnimator.CrossFade ("Idle", .1f);
 			} else {
 				_controller.height = .5f;
 				_mesh.localPosition = new Vector3 (0, -.25f, 0);
@@ -88,6 +95,10 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 			StartCoroutine(Shoot ());
 		}
 
+		if(Input.GetKey(KeyCode.Q) ){
+			StartCoroutine(Invincible());
+		}
+
 		if(Input.GetKey(KeyCode.C)){
 			if(!_crouch){
 				_crouch = true;
@@ -103,13 +114,25 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable {
 		}
 	}
 
+	private IEnumerator Invincible(){
+		_shield.localScale = new Vector3(3.1f,3.1f,3.1f);
+		_invincible = true;
+		Debug.Log ("PARTY");
+		yield return new WaitForSeconds (10f);
+		_invincible = false;
+		Debug.Log ("No More PARTY");
+		_shield.localScale = new Vector3(0f,0f,0f);
+	}
+
 	public void Kill(){
 		Debug.Log ("Player has been Killed!");
 		Destroy (this.gameObject, 0.0f);
 	}
 
 	public void Damage(int damage){
-		_saberControl.Damage (damage);
+		if (!_invincible) {
+			_saberControl.Damage (damage);
+		}
 	}
 
 	public void Heal(int heal){
