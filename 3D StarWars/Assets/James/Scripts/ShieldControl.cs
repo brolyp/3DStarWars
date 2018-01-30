@@ -36,6 +36,7 @@ public class ShieldControl : MonoBehaviour, IUseable {
 			_holder = other.transform;
 			transform.SetParent (_holder);
 			transform.localPosition = new Vector3 (0f, .25f, -1f);
+			transform.rotation = _holder.rotation;
 		}
 	}
 
@@ -49,7 +50,8 @@ public class ShieldControl : MonoBehaviour, IUseable {
 	private IEnumerator InvincibleCountdown(){
 		_active = true;
 		_mesh.localScale = new Vector3(0f,0f,0f);
-		_shield.localScale = new Vector3(3.1f,3.1f,3.1f);
+		_shield.localScale = new Vector3(4f,4f,4f);
+		_shield.position = _holder.position;
 		Debug.Log ("PARTY");
 		yield return new WaitForSeconds (ShieldTime);
 		_active = false;

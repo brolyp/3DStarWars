@@ -31,7 +31,6 @@ public class CameraControl : MonoBehaviour {
 	}
 
 	void LateUpdate () {
-		_cameraAngle = Input.GetAxis ("Mouse Y");
 
 		if(Input.GetAxis("Mouse ScrollWheel") > 0){
 			zOffset += 1f;
