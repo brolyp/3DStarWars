@@ -39,7 +39,6 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		_invincible = false;
 		_mesh = transform.GetChild (MESH);
 		_meshDefaultScale = _mesh.localScale;
-		_crouch = false;
 		_gravity = Physics.gravity.y * GravityMod;
 		_controller = GetComponent<CharacterController>();
 		_groundLayer = 1<<LayerMask.NameToLayer("Ground");
@@ -55,9 +54,10 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		_isGrounded = Physics.CheckSphere(transform.position, GroundDistance, _groundLayer, QueryTriggerInteraction.Ignore);
 		_mesh.localScale = new Vector3 (_meshDefaultScale.x, _meshDefaultScale.y, _meshDefaultScale.z);
 		_mesh.localPosition = new Vector3 (0, 0, 0);
-		if (_crouch) {
+
+		if (_saberAnimator.GetBool("Crouched")) {
 			if (!Input.GetKey (KeyCode.C)) {
-				_crouch = false;
+				_saberAnimator.SetBool ("Crouched", false);
 				_saberAnimator.CrossFade ("Idle", .1f);
 			} else {
 				_controller.height = .5f;
@@ -100,8 +100,8 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		}
 
 		if(Input.GetKey(KeyCode.C)){
-			if(!_crouch){
-				_crouch = true;
+			if(!_saberAnimator.GetBool("Crouched")){
+				_saberAnimator.SetBool ("Crouched", true);
 				_saberAnimator.Play ("toCrouch");
 			}
 		}
