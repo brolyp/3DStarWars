@@ -107,10 +107,10 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		}
 			
 		if (Input.GetKeyDown(KeyCode.P)){
-			Damage(1);
+			Damage(10);
 		}
 		if (Input.GetKeyDown(KeyCode.O)){
-			Heal(1);
+			Heal(10);
 		}
 	}
 
