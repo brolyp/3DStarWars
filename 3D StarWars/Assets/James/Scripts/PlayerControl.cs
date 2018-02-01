@@ -86,7 +86,9 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		_controller.Move(move * Time.deltaTime);
 
 		if(Input.GetMouseButtonDown(0) ){
-			StartCoroutine(Shoot ());
+			if (!_saberAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShootSaber")) {
+				StartCoroutine (Shoot ());
+			}
 		}
 
 		if(Input.GetKey(KeyCode.Q) ){

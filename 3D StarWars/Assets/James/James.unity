@@ -340,6 +340,11 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1.01
       objectReference: {fileID: 0}
+    - target: {fileID: 114621648893084662, guid: 3697119d1cd3442cebb3e5f77789bd4b,
+        type: 2}
+      propertyPath: CameraDistance
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3697119d1cd3442cebb3e5f77789bd4b, type: 2}
   m_IsPrefabParent: 0
