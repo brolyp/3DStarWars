@@ -7,58 +7,57 @@ using UnityEngine.EventSystems;
 public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNotification {
 
 	public enum AIState {patrol, pursue, attack, search};
-    public Transform[] patrolPoints;
-    //public enemyPerceptionTrigger ePT;
-    public int destPoint;
-    NavMeshAgent agent;
+	public AIState curAIState;
+
+	NavMeshAgent agent;
+
+	public Transform[] patrolPoints;
+	public Transform bulletSpawnT;
+	public Transform rifle;
+	public Transform playerTransf;
+
+	public GameObject bulletPrefab;
+	public GameObject exclamationPointFound;
+	GameObject instantiatedExclaimPF;
+
+	public Vector3 lastKnownPos;
+	public Vector3 target;
+
 	public float aimFuzz;
 	public float aimRangeBottom;
 	public float aimRangeTop;
-	public float saveTime;
-	public GameObject bulletPrefab;
-	public Transform bulletSpawnT;
-	public Transform rifle;
-	int numShot;
-	int numHit;
-	RaycastHit outHit;
-	Collider[] sphereHit;
-	public AIState curAIState;
+	public float shootTimer;
+	public float ignoreDist;
+	public float searchTime;
+
+	public int destPoint;
+
 	public bool alertedToPlayer;
 	public bool playerInRange;
-	public Transform playerTransf;
-	IEnemyNotification enemyNote;
 	bool startedTimer;
-	public Vector3 lastKnownPos;
-	public float searchTimer;
-	public float ignoreDist;
-	public GameObject exclamationPointFound;
-	GameObject instantiatedExclaimPF;
-	public float dist;
-	public float searchTime;
-	public bool repositioning;
-	public Vector3 target;
+
+	RaycastHit outHit;
+	Collider[] sphereHit;
+
+	IEnemyNotification enemyNote;
 
 	// Use this for initialization
 	void Start () {
-       // ePT = GetComponentInChildren<enemyPerceptionTrigger>();
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
-        destPoint = 0;
 		aimFuzz = 15.0f;
 		aimRangeTop = 1.5f;
 		aimRangeBottom = -1.5f;
-		saveTime = 0.0f;
-        NextPoint();
-		numShot = 0;
-		numHit = 0;
-		searchTimer = 0;
+		shootTimer = 0.0f;
+		searchTime = 0.0f;
 		alertedToPlayer = false;
+
+		destPoint = 0;
+		NextPoint();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (playerTransf != null)
-			dist = Vector3.Distance (playerTransf.position, transform.position);
 		switch (curAIState) 
 		{
 		case AIState.patrol:
@@ -74,7 +73,6 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 				curAIState = AIState.pursue;
 				instantiatedExclaimPF = Instantiate (exclamationPointFound, this.transform.position + new Vector3(0,1,0), Quaternion.identity, this.transform );
 				Destroy (instantiatedExclaimPF,0.5f);
-				//raysphere of size 12 - get all enemies in
 				sphereHit = Physics.OverlapSphere(transform.position, 10.0f);
 				if (sphereHit.Length != 0) 
 				{
@@ -114,23 +112,20 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 				}
 			}
 			break;
+
 		case AIState.attack:
 			//action
 			transform.LookAt (playerTransf.position);
-			if ((Time.time - saveTime) > 2f) {
-				numShot += 1;
+			if ((Time.time - shootTimer) > 2f) {
 				float yRot = Random.Range (aimRangeBottom, aimRangeTop) * aimFuzz;
 				Quaternion aimRot = Quaternion.Euler (0, yRot, 0);
 				Vector3 target = aimRot * (playerTransf.position - bulletSpawnT.position);
-				saveTime = Time.time;
-
+				shootTimer = Time.time;
 				GameObject shotBullet = (GameObject)Instantiate (bulletPrefab, bulletSpawnT.position, Quaternion.identity);
 				shotBullet.transform.forward = target;
 			}
 
-			//Vector3 toPlayer = playerTransf.position - transform.position;
 			Vector3 revToPlayer = transform.position - playerTransf.position;
-			//Debug.DrawRay (transform.position, toPlayer, Color.red);
 			if (Vector3.Distance (playerTransf.position, transform.position) < 4.0f && !agent.pathPending) {
 				target = transform.position + (revToPlayer.normalized * 4.5f);
 				instantiatedExclaimPF = Instantiate (exclamationPointFound, target, Quaternion.identity, this.transform);
@@ -163,13 +158,13 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 			if (alertedToPlayer) {
 				curAIState = AIState.pursue;
 			}
-			if (!agent.hasPath && searchTimer == 0) {
-				searchTimer = Time.time;
+			if (!agent.hasPath && searchTime == 0) {
+				searchTime = Time.time;
 			}
 
 			//update
-			if (searchTimer != 0 && (Time.time - searchTimer) > 5.5f) {
-				searchTimer = 0f;
+			if (searchTime != 0 && (Time.time - searchTime) > 5.5f) {
+				searchTime = 0f;
 				alertedToPlayer = false;
 				curAIState = AIState.patrol;
 				agent.autoBraking = false;
