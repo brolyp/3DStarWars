@@ -32,7 +32,7 @@ public class BulletControl : MonoBehaviour {
 		if (other.gameObject.layer == damageLayer) {
 			Debug.Log ("Something Hit w/ Bullet:" + other.gameObject.name);
 			IDamageable eControl = other.GetComponent<IDamageable> ();
-			eControl.Damage (_damage);
+			if(eControl != null) eControl.Damage (_damage);
 			Destroy (this.gameObject);
 		}
 	}

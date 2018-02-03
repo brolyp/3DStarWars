@@ -9,10 +9,12 @@ public class enemyPerceptionTrigger : MonoBehaviour {
 	public GameObject exclamationPointFound;
 	GameObject instantiatedExclaimPF;
 	RaycastHit hit;
+	public enemyController eControl;
 
 	// Use this for initialization
 	void Start () {
         playerInArea = false;
+		eControl = GetComponentInParent<enemyController> ();
 	}
 	
 	// Update is called once per frame
@@ -20,38 +22,49 @@ public class enemyPerceptionTrigger : MonoBehaviour {
 		
 	}
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-			if (Physics.Raycast (transform.position, other.transform.position - transform.position, out hit,  7.0f )) 
+			eControl.playerInRange = true;
+			if (Physics.Raycast (transform.position, other.transform.position - transform.position, out hit,  10.0f )) 
 			{
-				//Debug.Log ("Something was hit!");
-				//Debug.Log (hit.collider.gameObject.tag);
-				//Debug.Log (hit.collider.gameObject.name);
 				if (hit.collider.gameObject.tag == "Player") 
 				{
-					//Debug.Log ("The Player was hit!");
 					if (Vector3.Dot (transform.forward, other.transform.position - transform.position) > 0) {
-						//Debug.Log ("The Player is in front of us!");
-						playerInArea = true;
-						pTrans = other.transform;
 						instantiatedExclaimPF = Instantiate (exclamationPointFound, this.transform.position + new Vector3(0,1,0), Quaternion.identity, this.transform );
-						Destroy (instantiatedExclaimPF);
+						Destroy (instantiatedExclaimPF,0.5f);
 					}
 				}
 			}
-            //playerInArea = true;
-            //pTrans = other.transform;
         }
     }
 
+	void OnTriggerStay(Collider other)
+	{
+		if(other.tag == "Player")
+		{
+			if(!eControl.playerInRange) eControl.playerInRange = true;
+			Debug.Log ("hurf durk");
+			if (Physics.Raycast (transform.position, other.transform.position - transform.position, out hit,  10.0f )) 
+			{
+				if (hit.collider.gameObject.tag == "Player") 
+				{
+					if (Vector3.Dot (transform.forward, other.transform.position - transform.position) > 0) {
+						if(!eControl.alertedToPlayer) eControl.alertedToPlayer = true;
+						eControl.playerTransf = other.transform;
+					}
+				}
+			}
+		}
+	}
+
     void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player" && playerInArea)
+        if(other.tag == "Player")
         {
-            playerInArea = false;
-            pTrans = null;
+			eControl.playerInRange = false;
+			//eControl.playerTransf = null;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public interface IUseable {
 	void Use();
@@ -20,4 +21,9 @@ public interface IHealable {
 
 public interface IInvincible {
 	IEnumerator Invincible (float time);
+}
+
+public interface IEnemyNotification
+{
+	void Alert (Transform aTrans);
 }

@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 4528959489120402}
   - component: {fileID: 135140030308226864}
   - component: {fileID: 114218732898118398}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: perceptionTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
