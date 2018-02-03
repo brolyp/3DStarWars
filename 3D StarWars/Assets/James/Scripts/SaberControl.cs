@@ -24,7 +24,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 		_initialPosition = _mesh.localPosition;
 		_overcharge = 0;
 		Heal (10);
-
+		Damage (10);
 	}
 	
 	// Update is called once per frame
@@ -82,9 +82,8 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 	}
 
 	private void AdjustSaberLength(float scale, float pos, Transform mesh){
-		//_mesh.transform.localScale = new Vector3(_initialScale.x,_initialScale.y,_initialScale.z);
-		mesh.transform.localPosition = new Vector3 (_initialPosition.x, pos, _initialPosition.z);
-		mesh.transform.localScale = new Vector3(_initialScale.x, scale, _initialScale.z);
+		mesh.transform.localPosition = new Vector3 (mesh.localPosition.x, pos, mesh.localPosition.z);
+		mesh.transform.localScale = new Vector3(mesh.localScale.x, scale, mesh.localScale.z);
 	}
 
 }
