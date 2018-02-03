@@ -29,7 +29,7 @@ public class Battery : MonoBehaviour {
         {
             IDamageable isDamagable = other.GetComponent<IDamageable>();
             if (isDamagable != null)
-                isDamagable.Damage(HealAmount);
+                isDamagable.Damage(-HealAmount);
         }
     }
 }

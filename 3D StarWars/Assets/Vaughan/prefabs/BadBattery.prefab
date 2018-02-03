@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 33879853660142254}
   - component: {fileID: 23437790842997198}
   - component: {fileID: 95347976924853046}
-  - component: {fileID: 64958877121740996}
-  - component: {fileID: 114008106893288358}
+  - component: {fileID: 65082036970496170}
+  - component: {fileID: 114585132394652434}
   m_Layer: 8
   m_Name: BadBattery
   m_TagString: Untagged
@@ -88,8 +88,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1987797205303768}
   m_Mesh: {fileID: 4300000, guid: d414d0fc2952242d89f3efaedde80d49, type: 3}
---- !u!64 &64958877121740996
-MeshCollider:
+--- !u!65 &65082036970496170
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -97,11 +97,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: d414d0fc2952242d89f3efaedde80d49, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.009999999, y: 0.009999999, z: 0.021039532}
+  m_Center: {x: 0, y: 0.009229135, z: 0.00383697}
 --- !u!95 &95347976924853046
 Animator:
   serializedVersion: 3
@@ -119,7 +117,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114008106893288358
+--- !u!114 &114585132394652434
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -127,7 +125,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1987797205303768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef81c0365a31ee74a863dd05a4981409, type: 3}
+  m_Script: {fileID: 11500000, guid: 4177a2319785b440f855220dcd09aca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   HealAmount: -20
