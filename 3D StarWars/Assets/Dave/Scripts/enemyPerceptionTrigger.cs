@@ -6,8 +6,8 @@ public class enemyPerceptionTrigger : MonoBehaviour {
 
     public bool playerInArea;
     public Transform pTrans;
-	public GameObject exclamationPointFound;
-	GameObject instantiatedExclaimPF;
+	//public GameObject exclamationPointFound;
+	//GameObject instantiatedExclaimPF;
 	RaycastHit hit;
 	public enemyController eControl;
 
@@ -32,8 +32,8 @@ public class enemyPerceptionTrigger : MonoBehaviour {
 				if (hit.collider.gameObject.tag == "Player") 
 				{
 					if (Vector3.Dot (transform.forward, other.transform.position - transform.position) > 0) {
-						instantiatedExclaimPF = Instantiate (exclamationPointFound, this.transform.position + new Vector3(0,1,0), Quaternion.identity, this.transform );
-						Destroy (instantiatedExclaimPF,0.5f);
+						//instantiatedExclaimPF = Instantiate (exclamationPointFound, this.transform.position + new Vector3(0,1,0), Quaternion.identity, this.transform );
+						//Destroy (instantiatedExclaimPF,0.5f);
 					}
 				}
 			}
@@ -45,7 +45,6 @@ public class enemyPerceptionTrigger : MonoBehaviour {
 		if(other.tag == "Player")
 		{
 			if(!eControl.playerInRange) eControl.playerInRange = true;
-			Debug.Log ("hurf durk");
 			if (Physics.Raycast (transform.position, other.transform.position - transform.position, out hit,  10.0f )) 
 			{
 				if (hit.collider.gameObject.tag == "Player") 

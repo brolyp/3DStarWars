@@ -30,6 +30,13 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 	bool startedTimer;
 	public Vector3 lastKnownPos;
 	public float searchTimer;
+	public float ignoreDist;
+	public GameObject exclamationPointFound;
+	GameObject instantiatedExclaimPF;
+	public float dist;
+	public float searchTime;
+	public bool repositioning;
+	public Vector3 target;
 
 	// Use this for initialization
 	void Start () {
@@ -44,15 +51,19 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
         NextPoint();
 		numShot = 0;
 		numHit = 0;
+		searchTimer = 0;
 		alertedToPlayer = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (playerTransf != null)
+			dist = Vector3.Distance (playerTransf.position, transform.position);
 		switch (curAIState) 
 		{
 		case AIState.patrol:
 			//action
+			agent.stoppingDistance = 0.5f;
 			if (!agent.pathPending && agent.remainingDistance < 0.5f) {
 				NextPoint ();
 			}
@@ -61,6 +72,8 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 			if (alertedToPlayer) //or recieves message 
 			{
 				curAIState = AIState.pursue;
+				instantiatedExclaimPF = Instantiate (exclamationPointFound, this.transform.position + new Vector3(0,1,0), Quaternion.identity, this.transform );
+				Destroy (instantiatedExclaimPF,0.5f);
 				//raysphere of size 12 - get all enemies in
 				sphereHit = Physics.OverlapSphere(transform.position, 10.0f);
 				if (sphereHit.Length != 0) 
@@ -85,7 +98,7 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 			agent.destination = playerTransf.position;
 
 			//update
-			if (agent.remainingDistance <= 0.5) {
+			if (agent.remainingDistance <= 5.1) {
 				curAIState = AIState.attack;
 			}
 			if (Physics.Raycast(new Ray(transform.position, playerTransf.position - transform.position), out outHit)) 
@@ -93,58 +106,70 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 				if (outHit.collider.gameObject.tag != "Player") 
 				{
 					lastKnownPos = playerTransf.position;
+					agent.destination = lastKnownPos;
 					playerTransf = null;
 					curAIState = AIState.search;
+					alertedToPlayer = false;
+					agent.stoppingDistance = 0.5f;
 				}
 			}
 			break;
 		case AIState.attack:
 			//action
+			transform.LookAt (playerTransf.position);
 			if ((Time.time - saveTime) > 2f) {
 				numShot += 1;
 				float yRot = Random.Range (aimRangeBottom, aimRangeTop) * aimFuzz;
 				Quaternion aimRot = Quaternion.Euler (0, yRot, 0);
 				Vector3 target = aimRot * (playerTransf.position - bulletSpawnT.position);
-				Debug.DrawRay (bulletSpawnT.position, target, Color.red);
-				if (Physics.Raycast (bulletSpawnT.position, target, out outHit, 7.0f)) {
-					if (outHit.collider.gameObject.tag == "Player") {
-						//Debug.Log ("Something Hit w/ RayCast:" + outHit.collider.gameObject.name);
-					}
-				}
 				saveTime = Time.time;
 
 				GameObject shotBullet = (GameObject)Instantiate (bulletPrefab, bulletSpawnT.position, Quaternion.identity);
 				shotBullet.transform.forward = target;
 			}
 
+			//Vector3 toPlayer = playerTransf.position - transform.position;
+			Vector3 revToPlayer = transform.position - playerTransf.position;
+			//Debug.DrawRay (transform.position, toPlayer, Color.red);
+			if (Vector3.Distance (playerTransf.position, transform.position) < 4.0f && !agent.pathPending) {
+				target = transform.position + (revToPlayer.normalized * 4.5f);
+				instantiatedExclaimPF = Instantiate (exclamationPointFound, target, Quaternion.identity, this.transform);
+				Destroy (instantiatedExclaimPF, 0.2f);
+				if (agent.SetDestination (target))
+					Debug.Log ("Setting Destination has gone right?");
+				agent.stoppingDistance = 0.5f;
+			}
+
 			//update
-			if (agent.remainingDistance > 0.7f) {
+			if (agent.remainingDistance > 6.0f) {
 				curAIState = AIState.pursue;
 			}
-			//if player not visible or not in range
-			if (!playerInRange) {
-				lastKnownPos = playerTransf.position;
-				playerTransf = null;
-				curAIState = AIState.search;
-			}
-			else if(Physics.Raycast(new Ray(transform.position, playerTransf.position - transform.position), out outHit))
+
+			if(Physics.Raycast(new Ray(transform.position, playerTransf.position - transform.position), out outHit))
 			{
 				if (outHit.collider.gameObject.tag != "Player") {
 					lastKnownPos = playerTransf.position;
+					agent.destination = lastKnownPos;
 					playerTransf = null;
 					curAIState = AIState.search;
+					alertedToPlayer = false;
+					agent.stoppingDistance = 0.5f;
 				}
 			}
 			break;
+
 		case AIState.search:
 			//action
-			agent.destination = lastKnownPos;
-			if (agent.remainingDistance <= 1f) {
+			if (alertedToPlayer) {
+				curAIState = AIState.pursue;
+			}
+			if (!agent.hasPath && searchTimer == 0) {
 				searchTimer = Time.time;
 			}
 
 			//update
-			if ((Time.time - searchTimer) > 5.5f) {
+			if (searchTimer != 0 && (Time.time - searchTimer) > 5.5f) {
+				searchTimer = 0f;
 				alertedToPlayer = false;
 				curAIState = AIState.patrol;
 				agent.autoBraking = false;
@@ -154,40 +179,6 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 		default:
 			break;
 		}
-
-		/*if (ePT.playerInArea) {
-			transform.LookAt (ePT.pTrans);
-			//Vector3 target = ePT.pTrans.position + (transform.position.normalized * 5);
-			agent.stoppingDistance = 5.0f;
-			agent.autoBraking = true;
-			agent.destination = ePT.pTrans.position;
-			if ((Time.time - saveTime) > 2f) {
-				numShot += 1;
-				float yRot = Random.Range(aimRangeBottom, aimRangeTop) * aimFuzz;
-				Quaternion aimRot = Quaternion.Euler (0, yRot, 0);
-				Vector3 target = aimRot * (ePT.pTrans.position - bulletSpawnT.position);
-				Debug.DrawRay (bulletSpawnT.position, target, Color.red);
-				if (Physics.Raycast (bulletSpawnT.position, target, out outHit, 7.0f)) {
-					if (outHit.collider.gameObject.tag == "Player") {
-						//Debug.Log ("Something Hit w/ RayCast:" + outHit.collider.gameObject.name);
-					}
-				}
-				saveTime = Time.time;
-
-				GameObject shotBullet = (GameObject)Instantiate (bulletPrefab, bulletSpawnT.position, Quaternion.identity);
-				shotBullet.transform.forward = target;
-				//Debug.Log ("Number Shot "+ numShot);
-				//Debug.Log ("Number Hit "+ numHit);
-				//Destroy (shotBullet, 2.0f);
-			}
-		} else if (!agent.pathPending && agent.remainingDistance < 0.5f) {
-			//agent.stoppingDistance = 0.5f;
-			NextPoint ();
-		} else 
-		{
-			agent.autoBraking = false;
-			agent.stoppingDistance = 0.5f;
-		}*/
     }
 
     void NextPoint()
@@ -215,8 +206,12 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 	public void
 	Alert(Transform aTrans)
 	{
-		alertedToPlayer = true;
-		playerTransf = aTrans;
-		curAIState = AIState.pursue;
+		float dist = Vector3.Distance (aTrans.position, transform.position);
+		if (dist <= ignoreDist) 
+		{
+			playerTransf = aTrans;
+			curAIState = AIState.pursue;
+			alertedToPlayer = true;
+		}
 	}
 }
