@@ -7,10 +7,11 @@ public class Battery : MonoBehaviour {
     public int HealAmount;
     public float respawnTimer = 0;
     private float timeLeft = 0;
+    private AudioSource _audioSource;
 
 	// Use this for initialization
 	void Start () {
-		
+        _audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -42,6 +43,7 @@ public class Battery : MonoBehaviour {
                 timeLeft = respawnTimer;
                 GetComponent<Renderer>().enabled = false;
                 GetComponent<Collider>().enabled = false;
+                _audioSource.Play();
             }
         }
         else if (HealAmount < 0)
@@ -53,6 +55,7 @@ public class Battery : MonoBehaviour {
                 timeLeft = respawnTimer;
                 GetComponent<Renderer>().enabled = false;
                 GetComponent<Collider>().enabled = false;
+                _audioSource.Play();
             }
         }
 
