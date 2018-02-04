@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4105618151219568}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 114799376773401380}
   - component: {fileID: 114413946566294306}
   - component: {fileID: 114400188273888110}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KillCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4872871209156606}
   - component: {fileID: 95016134810018064}
   - component: {fileID: 114469094435126690}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LightSaber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 23611841142800518}
   - component: {fileID: 95774131181799184}
   - component: {fileID: 65167103129885804}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerMesh
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 65467534536434650}
   - component: {fileID: 23244071480884626}
   - component: {fileID: 95380964036812718}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 114217786153564598}
   - component: {fileID: 143887450869696890}
   - component: {fileID: 114621648893084662}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4847704867836794}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AimPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 81728204525539462}
   - component: {fileID: 54142106019369882}
   - component: {fileID: 65829080029564552}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Follow Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 65790740554221980}
   - component: {fileID: 23632284754935084}
   - component: {fileID: 95699928725189496}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OverChargeMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 33609399616016920}
   - component: {fileID: 23051298358620556}
   - component: {fileID: 95849344981688036}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: saberhilt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
