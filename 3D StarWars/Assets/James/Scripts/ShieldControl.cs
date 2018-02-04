@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ShieldControl : MonoBehaviour, IUseable {
 	public float ShieldTime = 10f;
+	public AudioSource Audio; 
 
+	private float _jokeTime = 2.5f;
 	private int MESH = 1, SHIELD = 0;
 	private bool _active;
 	private bool _held;
@@ -34,6 +36,7 @@ public class ShieldControl : MonoBehaviour, IUseable {
 			Debug.Log ("Player Grabs Shield");
 			_held = true;
 			_holder = other.transform;
+			_holder.gameObject.GetComponent<ICanEquip>().Equip(transform);
 			transform.SetParent (_holder);
 			transform.localPosition = new Vector3 (0f, .25f, -1f);
 			transform.rotation = _holder.rotation;
@@ -42,7 +45,14 @@ public class ShieldControl : MonoBehaviour, IUseable {
 
 	public void Use(){
 		Debug.Log ("SHIELDING");
+		Audio.Play();
 		IInvincible i = _holder.gameObject.GetComponent<IInvincible>();
+		StartCoroutine(Joke (i));
+	}
+
+	private IEnumerator Joke(IInvincible i){
+		Debug.Log ("Joking");
+		yield return new WaitForSeconds (_jokeTime);
 		i.Invincible (ShieldTime);
 		StartCoroutine(InvincibleCountdown ());
 	}

@@ -7,6 +7,8 @@ public class BulletControl : MonoBehaviour {
 	public float ttl = 2.0f;
 	int _damage = 10;
 	private Vector3 _velocity;
+	public AudioSource AudioSource;
+
 	LayerMask damageLayer;
 	// Use this for initialization
 	void Start () {
@@ -17,10 +19,12 @@ public class BulletControl : MonoBehaviour {
 	void Awake()
 	{
 		Destroy (this.gameObject, ttl);
+		AudioSource.Play ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		AudioSource.pitch += .1f;
 		Debug.DrawRay(transform.position + transform.forward, transform.forward, Color.red);
 		transform.Translate( _velocity * Time.deltaTime);
 	}

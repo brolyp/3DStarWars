@@ -27,3 +27,8 @@ public interface IEnemyNotification
 {
 	void Alert (Transform aTrans);
 }
+
+public interface ICanEquip
+{
+	void Equip (Transform item);
+}

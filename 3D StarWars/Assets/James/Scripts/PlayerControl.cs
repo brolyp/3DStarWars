@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, IInvincible {
-	private int MESH = 1, LIGHT_SABER = 2, BULLET_SPAWN = 3;
+public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, IInvincible, ICanEquip {
+	private int MESH = 1, LIGHT_SABER = 2;
 	private enum SaberState {Idle, Blocking, Shooting};
 
 	public float GravityMod = 1.2f;
@@ -16,6 +16,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 	public Transform BulletSpawn;
 	public Transform AimPoint;
 
+	private Transform _shield;
 	private bool _invincible;
 	private bool _crouch;
 	private Transform _mesh;
@@ -30,7 +31,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 	private SaberControl _saberControl;
 	private Animator _saberAnimator;
 	private CharacterController _controller;
-	private AudioSource _AudioSource;
+
 	//private Transform _bulletSpawn;
 
 
@@ -45,7 +46,6 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		_saber = transform.GetChild(LIGHT_SABER);
 		_saberControl = _saber.gameObject.GetComponent<SaberControl>();
 		_saberAnimator = _saber.GetComponent<Animator>();
-		_AudioSource = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -58,12 +58,14 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 
 		if (_saberAnimator.GetBool("Crouched")) {
 			if (!Input.GetKey (KeyCode.C)) {
+				_shield.localPosition = new Vector3 (0, 0, -.5f);
 				_controller.height = 1f;
 				_controller.radius = .5f;
 				_controller.center = new Vector3 (0,0,0);
 				_saberAnimator.SetBool ("Crouched", false);
 				_saberAnimator.CrossFade ("Idle", .1f);
 			} else {
+				_shield.localPosition = new Vector3 (0, -.125f, -.5f);
 				_controller.height = .5f;
 				_controller.radius = .01f;
 				_controller.center = new Vector3 (0,-.25f,0);
@@ -98,10 +100,9 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		}
 
 		if(Input.GetKey(KeyCode.Q) ){
-			IUseable s = GetComponentInChildren<IUseable> ();
 			Debug.Log ("attempting shield");
-			if (s != null) {
-				s.Use ();
+			if (_shield != null) {
+				_shield.gameObject.GetComponent<IUseable>().Use ();
 				Debug.Log ("using shield");
 			}
 
@@ -156,8 +157,12 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 			BulletPrefab,
 			BulletSpawn.position,
 			BulletSpawn.rotation);
-		_AudioSource.Play ();
+		
 		//Destroy(bullet, 2.0f); - moved to public float ttl in BulletControl for autonomy
+	}
+
+	public void Equip(Transform item){
+		_shield = item;
 	}
 		
 }
