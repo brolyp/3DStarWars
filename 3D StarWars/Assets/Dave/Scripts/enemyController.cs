@@ -7,44 +7,53 @@ using UnityEngine.EventSystems;
 public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNotification {
 
 	public enum AIState {patrol, pursue, attack, search};
-    public Transform[] patrolPoints;
-    //public enemyPerceptionTrigger ePT;
-    public int destPoint;
-    NavMeshAgent agent;
+	public AIState curAIState;
+
+	NavMeshAgent agent;
+
+	public Transform[] patrolPoints;
+	public Transform bulletSpawnT;
+	public Transform rifle;
+	public Transform playerTransf;
+
+	public GameObject bulletPrefab;
+	public GameObject exclamationPointFound;
+	GameObject instantiatedExclaimPF;
+
+	public Vector3 lastKnownPos;
+	public Vector3 target;
+
 	public float aimFuzz;
 	public float aimRangeBottom;
 	public float aimRangeTop;
-	public float saveTime;
-	public GameObject bulletPrefab;
-	public Transform bulletSpawnT;
-	public Transform rifle;
-	int numShot;
-	int numHit;
-	RaycastHit outHit;
-	Collider[] sphereHit;
-	public AIState curAIState;
+	public float shootTimer;
+	public float ignoreDist;
+	public float searchTime;
+
+	public int destPoint;
+
 	public bool alertedToPlayer;
 	public bool playerInRange;
-	public Transform playerTransf;
-	IEnemyNotification enemyNote;
 	bool startedTimer;
-	public Vector3 lastKnownPos;
-	public float searchTimer;
+
+	RaycastHit outHit;
+	Collider[] sphereHit;
+
+	IEnemyNotification enemyNote;
 
 	// Use this for initialization
 	void Start () {
-       // ePT = GetComponentInChildren<enemyPerceptionTrigger>();
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
-        destPoint = 0;
 		aimFuzz = 15.0f;
 		aimRangeTop = 1.5f;
 		aimRangeBottom = -1.5f;
-		saveTime = 0.0f;
-        NextPoint();
-		numShot = 0;
-		numHit = 0;
+		shootTimer = 0.0f;
+		searchTime = 0.0f;
 		alertedToPlayer = false;
+
+		destPoint = 0;
+		NextPoint();
 	}
 	
 	// Update is called once per frame
@@ -53,6 +62,7 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 		{
 		case AIState.patrol:
 			//action
+			agent.stoppingDistance = 0.5f;
 			if (!agent.pathPending && agent.remainingDistance < 0.5f) {
 				NextPoint ();
 			}
@@ -61,7 +71,8 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 			if (alertedToPlayer) //or recieves message 
 			{
 				curAIState = AIState.pursue;
-				//raysphere of size 12 - get all enemies in
+				instantiatedExclaimPF = Instantiate (exclamationPointFound, this.transform.position + new Vector3(0,1,0), Quaternion.identity, this.transform );
+				Destroy (instantiatedExclaimPF,0.5f);
 				sphereHit = Physics.OverlapSphere(transform.position, 10.0f);
 				if (sphereHit.Length != 0) 
 				{
@@ -85,7 +96,7 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 			agent.destination = playerTransf.position;
 
 			//update
-			if (agent.remainingDistance <= 0.5) {
+			if (agent.remainingDistance <= 5.1) {
 				curAIState = AIState.attack;
 			}
 			if (Physics.Raycast(new Ray(transform.position, playerTransf.position - transform.position), out outHit)) 
@@ -93,58 +104,67 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 				if (outHit.collider.gameObject.tag != "Player") 
 				{
 					lastKnownPos = playerTransf.position;
+					agent.destination = lastKnownPos;
 					playerTransf = null;
 					curAIState = AIState.search;
+					alertedToPlayer = false;
+					agent.stoppingDistance = 0.5f;
 				}
 			}
 			break;
+
 		case AIState.attack:
 			//action
-			if ((Time.time - saveTime) > 2f) {
-				numShot += 1;
+			transform.LookAt (playerTransf.position);
+			if ((Time.time - shootTimer) > 2f) {
 				float yRot = Random.Range (aimRangeBottom, aimRangeTop) * aimFuzz;
 				Quaternion aimRot = Quaternion.Euler (0, yRot, 0);
 				Vector3 target = aimRot * (playerTransf.position - bulletSpawnT.position);
-				Debug.DrawRay (bulletSpawnT.position, target, Color.red);
-				if (Physics.Raycast (bulletSpawnT.position, target, out outHit, 7.0f)) {
-					if (outHit.collider.gameObject.tag == "Player") {
-						//Debug.Log ("Something Hit w/ RayCast:" + outHit.collider.gameObject.name);
-					}
-				}
-				saveTime = Time.time;
-
+				shootTimer = Time.time;
 				GameObject shotBullet = (GameObject)Instantiate (bulletPrefab, bulletSpawnT.position, Quaternion.identity);
 				shotBullet.transform.forward = target;
 			}
 
-			//update
-			if (agent.remainingDistance > 0.7f) {
-				curAIState = AIState.pursue;
-			}
-			//if player not visible or not in range
-			if (!playerInRange) {
-				lastKnownPos = playerTransf.position;
-				playerTransf = null;
-				curAIState = AIState.search;
-			}
-			else if(Physics.Raycast(new Ray(transform.position, playerTransf.position - transform.position), out outHit))
-			{
-				if (outHit.collider.gameObject.tag != "Player") {
-					lastKnownPos = playerTransf.position;
-					playerTransf = null;
-					curAIState = AIState.search;
-				}
-			}
-			break;
-		case AIState.search:
-			//action
-			agent.destination = lastKnownPos;
-			if (agent.remainingDistance <= 1f) {
-				searchTimer = Time.time;
+			Vector3 revToPlayer = transform.position - playerTransf.position;
+			if (Vector3.Distance (playerTransf.position, transform.position) < 4.0f && !agent.pathPending) {
+				target = transform.position + (revToPlayer.normalized * 4.5f);
+				instantiatedExclaimPF = Instantiate (exclamationPointFound, target, Quaternion.identity, this.transform);
+				Destroy (instantiatedExclaimPF, 0.2f);
+				if (agent.SetDestination (target))
+					Debug.Log ("Setting Destination has gone right?");
+				agent.stoppingDistance = 0.5f;
 			}
 
 			//update
-			if ((Time.time - searchTimer) > 5.5f) {
+			if (agent.remainingDistance > 6.0f) {
+				curAIState = AIState.pursue;
+			}
+
+			if(Physics.Raycast(new Ray(transform.position, playerTransf.position - transform.position), out outHit))
+			{
+				if (outHit.collider.gameObject.tag != "Player") {
+					lastKnownPos = playerTransf.position;
+					agent.destination = lastKnownPos;
+					playerTransf = null;
+					curAIState = AIState.search;
+					alertedToPlayer = false;
+					agent.stoppingDistance = 0.5f;
+				}
+			}
+			break;
+
+		case AIState.search:
+			//action
+			if (alertedToPlayer) {
+				curAIState = AIState.pursue;
+			}
+			if (!agent.hasPath && searchTime == 0) {
+				searchTime = Time.time;
+			}
+
+			//update
+			if (searchTime != 0 && (Time.time - searchTime) > 5.5f) {
+				searchTime = 0f;
 				alertedToPlayer = false;
 				curAIState = AIState.patrol;
 				agent.autoBraking = false;
@@ -154,40 +174,6 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 		default:
 			break;
 		}
-
-		/*if (ePT.playerInArea) {
-			transform.LookAt (ePT.pTrans);
-			//Vector3 target = ePT.pTrans.position + (transform.position.normalized * 5);
-			agent.stoppingDistance = 5.0f;
-			agent.autoBraking = true;
-			agent.destination = ePT.pTrans.position;
-			if ((Time.time - saveTime) > 2f) {
-				numShot += 1;
-				float yRot = Random.Range(aimRangeBottom, aimRangeTop) * aimFuzz;
-				Quaternion aimRot = Quaternion.Euler (0, yRot, 0);
-				Vector3 target = aimRot * (ePT.pTrans.position - bulletSpawnT.position);
-				Debug.DrawRay (bulletSpawnT.position, target, Color.red);
-				if (Physics.Raycast (bulletSpawnT.position, target, out outHit, 7.0f)) {
-					if (outHit.collider.gameObject.tag == "Player") {
-						//Debug.Log ("Something Hit w/ RayCast:" + outHit.collider.gameObject.name);
-					}
-				}
-				saveTime = Time.time;
-
-				GameObject shotBullet = (GameObject)Instantiate (bulletPrefab, bulletSpawnT.position, Quaternion.identity);
-				shotBullet.transform.forward = target;
-				//Debug.Log ("Number Shot "+ numShot);
-				//Debug.Log ("Number Hit "+ numHit);
-				//Destroy (shotBullet, 2.0f);
-			}
-		} else if (!agent.pathPending && agent.remainingDistance < 0.5f) {
-			//agent.stoppingDistance = 0.5f;
-			NextPoint ();
-		} else 
-		{
-			agent.autoBraking = false;
-			agent.stoppingDistance = 0.5f;
-		}*/
     }
 
     void NextPoint()
@@ -215,8 +201,12 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 	public void
 	Alert(Transform aTrans)
 	{
-		alertedToPlayer = true;
-		playerTransf = aTrans;
-		curAIState = AIState.pursue;
+		float dist = Vector3.Distance (aTrans.position, transform.position);
+		if (dist <= ignoreDist) 
+		{
+			playerTransf = aTrans;
+			curAIState = AIState.pursue;
+			alertedToPlayer = true;
+		}
 	}
 }

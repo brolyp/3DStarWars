@@ -43,7 +43,7 @@ MonoBehaviour:
     y: 0
     width: 1680
     height: 925
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -106,10 +106,17 @@ MonoBehaviour:
     y: 30
     width: 1680
     height: 875
+<<<<<<< HEAD
   m_MinSize: {x: 681, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
   controlID: 5907
+=======
+  m_MinSize: {x: 679, y: 492}
+  m_MaxSize: {x: 14002, y: 14042}
+  vertical: 0
+  controlID: 127
+>>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -178,7 +185,11 @@ MonoBehaviour:
     height: 604
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 4000, y: 4000}
+<<<<<<< HEAD
   m_ActualView: {fileID: 13}
+=======
+  m_ActualView: {fileID: 14}
+>>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
   m_Panes:
   - {fileID: 13}
   m_Selected: 0
@@ -255,9 +266,15 @@ MonoBehaviour:
     y: 0
     width: 304
     height: 875
+<<<<<<< HEAD
   m_MinSize: {x: 277, y: 71}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 19}
+=======
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 20}
+>>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
   m_Panes:
   - {fileID: 19}
   - {fileID: 20}
@@ -271,6 +288,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 1
+<<<<<<< HEAD
+=======
+  m_Script: {fileID: 12141, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AutoRepaintOnSceneChange: 0
+  m_MinSize: {x: 300, y: 360}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Navigation
+    m_Image: {fileID: 7874161543223113035, guid: 0000000000000000d000000000000000,
+      type: 0}
+    m_Tooltip: 
+  m_DepthBufferBits: 0
+  m_Pos:
+    serializedVersion: 2
+    x: 1494
+    y: 116
+    width: 302
+    height: 854
+  m_PersistentViewDataDictionary: {fileID: 0}
+--- !u!114 &13
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+>>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
   m_Script: {fileID: 12015, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -285,8 +332,13 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 224
     y: 99
+=======
+    x: 340
+    y: 116
+>>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
     width: 1150
     height: 583
   m_MaximizeOnPlay: 0
@@ -367,9 +419,15 @@ MonoBehaviour:
     height: 583
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
+<<<<<<< HEAD
     m_SelectedIDs: a083ffff
     m_LastClickedID: -31840
     m_ExpandedIDs: a083ffff049cffff089cffff129cffffbef4ffff00000000
+=======
+    m_SelectedIDs: dafaffff
+    m_LastClickedID: -1318
+    m_ExpandedIDs: 9efbffff00000000
+>>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -388,7 +446,11 @@ MonoBehaviour:
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
   m_ExpandedScenes:
+<<<<<<< HEAD
   - James
+=======
+  - Dave
+>>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -424,9 +486,15 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
+<<<<<<< HEAD
     m_Target: {x: 222.81253, y: 643.8125, z: 0.00001335144}
     speed: 2
     m_Value: {x: 222.81253, y: 643.8125, z: 0.00001335144}
+=======
+    m_Target: {x: 9.094171, y: 15.450924, z: -14.356364}
+    speed: 2
+    m_Value: {x: 9.094171, y: 15.450924, z: -14.356364}
+>>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -449,6 +517,7 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
+<<<<<<< HEAD
     m_Target: {x: -0.052517083, y: -0.004808628, z: 0.00025218268, w: -0.99860835}
     speed: 2
     m_Value: {x: -0.05251709, y: -0.0048086285, z: 0.0002521827, w: -0.99860847}
@@ -456,6 +525,15 @@ MonoBehaviour:
     m_Target: 514.67725
     speed: 2
     m_Value: 514.67725
+=======
+    m_Target: {x: 0.16352122, y: -0.34573385, z: 0.061322685, w: 0.9219374}
+    speed: 2
+    m_Value: {x: -0.16352122, y: 0.34573382, z: -0.061322685, w: -0.9219374}
+  m_Size:
+    m_Target: 146.49495
+    speed: 2
+    m_Value: 146.49495
+>>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -572,6 +650,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
+<<<<<<< HEAD
     - Assets/James
   m_ViewMode: 1
   m_StartGridSize: 64
@@ -585,6 +664,21 @@ MonoBehaviour:
     m_SelectedIDs: 50340000
     m_LastClickedID: 13392
     m_ExpandedIDs: 00000000803000008e300000a0300000ae300000b2300000563100009c310000bc310000fe31000030320000403200004e3200006232000068320000b23200002c33000044330000463300006633000078330000203400003c3400004434000050340000ee3400008677000088770000ffffff7f
+=======
+    - Assets/Dave/Scripts
+  m_ViewMode: 1
+  m_StartGridSize: 64
+  m_LastFolders:
+  - Assets/Dave/Scripts
+  m_LastFoldersGridSize: -1
+  m_LastProjectPath: C:\Users\djf8530\Documents\School\CSCE 538\3DStarWars\3D StarWars
+  m_IsLocked: 0
+  m_FolderTreeState:
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: c02a0000
+    m_LastClickedID: 10944
+    m_ExpandedIDs: 00000000b0270000c4270000d8270000e2270000e8270000ac280000f8280000202900006e290000b4290000ca290000da290000fc290000042a00005c2a0000fa2a0000182b00001a2b0000522b0000642b00003e2c00006e2c00007e2c00000e2d00005a2d0000ca2f0000cc2f000000ca9a3bffffff7f
+>>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -612,7 +706,11 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
+<<<<<<< HEAD
     m_ExpandedIDs: 00000000803000008e300000a0300000ae300000b2300000563100009c310000bc310000fe31000030320000403200004e3200006232000068320000b23200002c33000044330000463300006633000078330000203400003c3400004434000050340000b6340000ee3400008677000088770000ffffff7f
+=======
+    m_ExpandedIDs: 00000000b0270000c4270000d8270000e2270000e8270000ac280000f8280000202900006e290000b4290000ca290000da290000fc290000042a00005c2a0000fa2a0000182b00001a2b0000522b0000642b00003e2c00006e2c00007e2c00000e2d00005a2d0000ca2f0000cc2f0000
+>>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
