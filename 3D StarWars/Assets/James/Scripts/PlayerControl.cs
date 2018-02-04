@@ -30,12 +30,12 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 	private SaberControl _saberControl;
 	private Animator _saberAnimator;
 	private CharacterController _controller;
+	private AudioSource _AudioSource;
 	//private Transform _bulletSpawn;
 
 
 	// Use this for initialization
 	void Start () {
-
 		_invincible = false;
 		_mesh = transform.GetChild (MESH);
 		_meshDefaultScale = _mesh.localScale;
@@ -45,6 +45,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		_saber = transform.GetChild(LIGHT_SABER);
 		_saberControl = _saber.gameObject.GetComponent<SaberControl>();
 		_saberAnimator = _saber.GetComponent<Animator>();
+		_AudioSource = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -142,6 +143,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 	}
 
 	private IEnumerator Shoot(){
+		
 		_saberAnimator.Play ("ShootSaber");
 		yield return new WaitForSeconds(0.17f);
  		//BulletSpawn.transform.LookAt(AimPoint.transform);
@@ -149,7 +151,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 			BulletPrefab,
 			BulletSpawn.position,
 			BulletSpawn.rotation);
-
+		_AudioSource.Play ();
 		//Destroy(bullet, 2.0f); - moved to public float ttl in BulletControl for autonomy
 	}
 		

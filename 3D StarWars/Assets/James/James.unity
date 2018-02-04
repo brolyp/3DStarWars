@@ -328,23 +328,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4521726865720416, guid: 3697119d1cd3442cebb3e5f77789bd4b, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4521726865720416, guid: 3697119d1cd3442cebb3e5f77789bd4b, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4521726865720416, guid: 3697119d1cd3442cebb3e5f77789bd4b, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 114621648893084662, guid: 3697119d1cd3442cebb3e5f77789bd4b,
+    - target: {fileID: 223567936689081412, guid: 3697119d1cd3442cebb3e5f77789bd4b,
         type: 2}
-      propertyPath: CameraDistance
-      value: 4
+      propertyPath: m_PixelPerfect
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114400188273888110, guid: 3697119d1cd3442cebb3e5f77789bd4b,
+        type: 2}
+      propertyPath: KillSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 612d10440d45e438bba3b43ef8356b27,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3697119d1cd3442cebb3e5f77789bd4b, type: 2}
   m_IsPrefabParent: 0
