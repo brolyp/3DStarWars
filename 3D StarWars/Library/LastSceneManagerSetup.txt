@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Brock/MainMenu.unity
+- path: Assets/James/James.unity
   isLoaded: 1
   isActive: 1

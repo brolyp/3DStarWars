@@ -11,8 +11,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 	private IKillable _parent;
 	private Transform _mesh;
 	private Transform _oMesh;
-	private Vector3 _initialPosition;
-	private Vector3 _initialScale;
+
 
 	// Use this for initialization
 	void Start () {
@@ -20,8 +19,6 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 		_oMesh = transform.GetChild (OVERCHARGEMESH);
 		_energy = MaxEnergy;		
 		_parent = transform.parent.gameObject.GetComponent<IKillable>();
-		_initialScale = _mesh.localScale;
-		_initialPosition = _mesh.localPosition;
 		_overcharge = 0;
 		Heal (10);
 		Damage (10);
@@ -68,6 +65,9 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 			//Debug.Log ("Energy:" + _energy);
 			float scale = _overcharge / 100f;
 			float pos = scale / 2 + .45f;
+			if (_overcharge == 100f) {
+				scale += .1f;
+			}
 			AdjustSaberLength (scale, pos, _oMesh);
 		} else {
 			_energy += heal;

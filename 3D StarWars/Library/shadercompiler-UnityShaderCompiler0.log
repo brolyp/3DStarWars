@@ -1,6 +1,40 @@
 Base path: /Applications/Unity/Unity.app/Contents
 Cmd: initializeCompiler
-Cmd: compileSnippet
-  api=15 type=0 insize=4081 outsize=4785 kw=DIRECTIONAL pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING ok=1
-Cmd: compileSnippet
-  api=15 type=1 insize=4081 outsize=0 kw=DIRECTIONAL pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING ok=1
+Cmd: preprocess
+  insize=890 outsize=324 ok=1
+Cmd: preprocess
+  insize=4242 outsize=1054 ok=1
+Cmd: preprocess
+  insize=2414 outsize=1077 ok=1
+Cmd: preprocess
+  insize=681 outsize=1137 ok=1
+Cmd: preprocess
+  insize=3433 outsize=2546 ok=1
+Cmd: preprocess
+  insize=12931 outsize=2549 ok=1
+Cmd: preprocess
+  insize=10146 outsize=3898 ok=1
+Cmd: preprocess
+  insize=890 outsize=324 ok=1
+Cmd: preprocess
+  insize=12069 outsize=2430 ok=1
+Cmd: preprocess
+  insize=4252 outsize=3549 ok=1
+Cmd: preprocess
+  insize=681 outsize=1137 ok=1
+Cmd: preprocess
+  insize=1876 outsize=565 ok=1
+Cmd: preprocess
+  insize=7128 outsize=2362 ok=1
+Cmd: preprocess
+  insize=8095 outsize=2629 ok=1
+Cmd: preprocess
+  insize=14691 outsize=3046 ok=1
+Cmd: preprocess
+  insize=7161 outsize=2371 ok=1
+Cmd: preprocess
+  insize=3601 outsize=1607 ok=1
+Cmd: preprocess
+  insize=10155 outsize=3907 ok=1
+Cmd: preprocess
+  insize=3642 outsize=1210 ok=1
