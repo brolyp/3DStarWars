@@ -32,12 +32,24 @@ public class BulletControl : MonoBehaviour {
 	void
 	OnTriggerEnter(Collider other)
 	{
-		Debug.Log ("Collsison w/: "+other.gameObject.name);
+		//Debug.Log ("Collsison w/: "+other.gameObject.name);
 		if (other.gameObject.layer == damageLayer) {
-			Debug.Log ("Something Hit w/ Bullet:" + other.gameObject.name);
+			//Debug.Log ("Something Hit w/ Bullet:" + other.gameObject.name);
+			ICanBlock oBlocker = other.GetComponent<ICanBlock>();
 			IDamageable eControl = other.GetComponent<IDamageable> ();
-			if(eControl != null) eControl.Damage (_damage);
-			Destroy (this.gameObject);
+			if (oBlocker != null) 
+			{
+				oBlocker.Block (transform, _damage);
+			}
+			else if (eControl != null) 
+			{
+				eControl.Damage (_damage);
+				Destroy (this.gameObject);
+			} 
+			else 
+			{
+				Destroy (this.gameObject);
+			}
 		}
 	}
 }

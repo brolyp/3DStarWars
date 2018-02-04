@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Vaughan/Tatooine.unity
+- path: Assets/Dave/Dave.unity
   isLoaded: 1
   isActive: 1
