@@ -42,7 +42,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		_meshDefaultScale = _mesh.localScale;
 		_gravity = Physics.gravity.y * GravityMod;
 		_controller = GetComponent<CharacterController>();
-		_groundLayer = 1<<LayerMask.NameToLayer("Ground");
+		_groundLayer = 1<<LayerMask.NameToLayer("Ground") | 1<<LayerMask.NameToLayer("Default") & ~(1<<LayerMask.NameToLayer("Player"));
 		_saber = transform.GetChild(LIGHT_SABER);
 		_saberControl = _saber.gameObject.GetComponent<SaberControl>();
 		_saberAnimator = _saber.GetComponent<Animator>();
@@ -58,14 +58,18 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 
 		if (_saberAnimator.GetBool("Crouched")) {
 			if (!Input.GetKey (KeyCode.C)) {
-				_shield.localPosition = new Vector3 (0, 0, -.5f);
+				if (_shield) {
+					_shield.localPosition = new Vector3 (0, 0, -.5f);
+				}
 				_controller.height = 1f;
 				_controller.radius = .5f;
 				_controller.center = new Vector3 (0,0,0);
 				_saberAnimator.SetBool ("Crouched", false);
 				_saberAnimator.CrossFade ("Idle", .1f);
 			} else {
-				_shield.localPosition = new Vector3 (0, -.125f, -.5f);
+				if (_shield) {
+					_shield.localPosition = new Vector3 (0, -.125f, -.5f);
+				}
 				_controller.height = .5f;
 				_controller.radius = .01f;
 				_controller.center = new Vector3 (0,-.25f,0);
