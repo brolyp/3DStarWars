@@ -324,8 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInArea: 0
   pTrans: {fileID: 0}
-  exclamationPointFound: {fileID: 1333962455293422, guid: caad83aa2006e3f4e989cece39612fcd,
-    type: 2}
+  eControl: {fileID: 0}
 --- !u!114 &114674099278305142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -340,7 +339,6 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
-  ePT: {fileID: 0}
   destPoint: 0
   aimFuzz: 0
   aimRangeBottom: 0
@@ -350,6 +348,19 @@ MonoBehaviour:
     type: 2}
   bulletSpawnT: {fileID: 4274454533720866}
   rifle: {fileID: 4038343800820760}
+  curAIState: 0
+  alertedToPlayer: 0
+  playerInRange: 0
+  playerTransf: {fileID: 0}
+  lastKnownPos: {x: 0, y: 0, z: 0}
+  searchTimer: 0
+  ignoreDist: 20
+  exclamationPointFound: {fileID: 1333962455293422, guid: caad83aa2006e3f4e989cece39612fcd,
+    type: 2}
+  dist: 0
+  searchTime: 0
+  repositioning: 0
+  target: {x: 0, y: 0, z: 0}
 --- !u!135 &135140030308226864
 SphereCollider:
   m_ObjectHideFlags: 1

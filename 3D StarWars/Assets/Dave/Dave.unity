@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.5748171, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1509,7 +1509,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4549962379950666, guid: b263dd8f9507a4541868619b5e407e41, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.37
+      value: 1.11
       objectReference: {fileID: 0}
     - target: {fileID: 4549962379950666, guid: b263dd8f9507a4541868619b5e407e41, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1549,6 +1549,11 @@ Prefab:
       propertyPath: patrolPoints.Array.data[1]
       value: 
       objectReference: {fileID: 1036930483}
+    - target: {fileID: 114674099278305142, guid: b263dd8f9507a4541868619b5e407e41,
+        type: 2}
+      propertyPath: ignoreDist
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b263dd8f9507a4541868619b5e407e41, type: 2}
   m_IsPrefabParent: 0
