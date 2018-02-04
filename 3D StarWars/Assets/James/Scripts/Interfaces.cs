@@ -27,7 +27,10 @@ public interface IEnemyNotification
 {
 	void Alert (Transform aTrans);
 }
-
+public interface ICanBlock
+{
+	void Block (Transform bTrans, int damage);
+}
 public interface ICanEquip
 {
 	void Equip (Transform item);

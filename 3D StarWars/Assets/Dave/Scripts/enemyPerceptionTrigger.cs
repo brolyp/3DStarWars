@@ -22,24 +22,6 @@ public class enemyPerceptionTrigger : MonoBehaviour {
 		
 	}
 
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Player")
-        {
-			eControl.playerInRange = true;
-			if (Physics.Raycast (transform.position, other.transform.position - transform.position, out hit,  10.0f )) 
-			{
-				if (hit.collider.gameObject.tag == "Player") 
-				{
-					if (Vector3.Dot (transform.forward, other.transform.position - transform.position) > 0) {
-						//instantiatedExclaimPF = Instantiate (exclamationPointFound, this.transform.position + new Vector3(0,1,0), Quaternion.identity, this.transform );
-						//Destroy (instantiatedExclaimPF,0.5f);
-					}
-				}
-			}
-        }
-    }
-
 	void OnTriggerStay(Collider other)
 	{
 		if(other.tag == "Player")

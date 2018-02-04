@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 	public int MaxEnergy = 100;
+	public bool overchargeable;
 
 	private int MESH = 0, OVERCHARGEMESH = 2;
 	private int _overcharge;
 	private int _energy;
 	private IKillable _parent;
-	private Transform _mesh;
+	public Transform _mesh;
 	private Transform _oMesh;
 
 
 	// Use this for initialization
 	void Start () {
 		_mesh = transform.GetChild (MESH);
-		_oMesh = transform.GetChild (OVERCHARGEMESH);
+		if(overchargeable)_oMesh = transform.GetChild (OVERCHARGEMESH);
 		_energy = MaxEnergy;		
 		_parent = transform.parent.gameObject.GetComponent<IKillable>();
 		_overcharge = 0;
@@ -31,6 +32,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 	public void Damage(int damage){
 		if (_overcharge == 0) {
 			_energy -= damage;
+			Debug.Log ("Energy: " + _energy);
 			//Debug.Log ("Energy:" + _energy);
 			if (_energy < 0) {
 				try {
@@ -58,6 +60,9 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 
 	public void Heal(int heal){
 		if (_energy == 100) {
+			if (!overchargeable) {
+				return;
+			}
 			_overcharge += heal;
 			if (_overcharge > MaxEnergy) {
 				_overcharge = MaxEnergy;
@@ -79,6 +84,11 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 			float pos = scale / 2 + .45f;
 			AdjustSaberLength (scale, pos, _mesh);
 		}
+	}
+
+	public void Block(Transform bTrans)
+	{
+		bTrans.forward = Vector3.up;
 	}
 
 	private void AdjustSaberLength(float scale, float pos, Transform mesh){

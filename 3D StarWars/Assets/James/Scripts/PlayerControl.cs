@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, IInvincible, ICanEquip {
-	private int MESH = 1, LIGHT_SABER = 2;
+
+public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, IInvincible, ICanEquip, ICanBlock {
+	private int MESH = 1, LIGHT_SABER = 2, BULLET_SPAWN = 3;
 	private enum SaberState {Idle, Blocking, Shooting};
 
 	public float GravityMod = 1.2f;
@@ -144,6 +145,14 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 	public 
 	void Heal(int heal){
 		_saberControl.Heal (heal);
+	}
+
+	public void
+	Block(Transform bTransf, int damage)
+	{
+		Damage (damage);
+		_saberControl.Block (bTransf);
+		
 	}
 
 	public IEnumerator Invincible(float time){
