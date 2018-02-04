@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/James/James.unity
+- path: Assets/Vaughan/Tatooine.unity
   isLoaded: 1
   isActive: 1
