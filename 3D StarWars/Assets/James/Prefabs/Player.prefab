@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 33360284000931988}
   - component: {fileID: 23611841142800518}
   - component: {fileID: 95774131181799184}
+  - component: {fileID: 65167103129885804}
   m_Layer: 0
   m_Name: PlayerMesh
   m_TagString: Untagged
@@ -536,6 +537,18 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65167103129885804
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1514233575125858}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.04000001, y: 0.04, z: 0.04000001}
+  m_Center: {x: -9.313228e-10, y: 0, z: 0}
 --- !u!65 &65467534536434650
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -796,7 +809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteOffset: 5
-  KillSprite: {fileID: 21300000, guid: 17cc6f87e94b8464eae81c56fa795032, type: 3}
+  KillSprite: {fileID: 21300000, guid: 612d10440d45e438bba3b43ef8356b27, type: 3}
 --- !u!114 &114413946566294306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -896,7 +909,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 20092928681412756}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0

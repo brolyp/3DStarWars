@@ -51,17 +51,22 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 	// Update is called once per frame
 	void Update() {
 		
-		_controller.height = 1f;
+
 		_isGrounded = Physics.CheckSphere(transform.position, GroundDistance, _groundLayer, QueryTriggerInteraction.Ignore);
 		_mesh.localScale = new Vector3 (_meshDefaultScale.x, _meshDefaultScale.y, _meshDefaultScale.z);
 		_mesh.localPosition = new Vector3 (0, 0, 0);
 
 		if (_saberAnimator.GetBool("Crouched")) {
 			if (!Input.GetKey (KeyCode.C)) {
+				_controller.height = 1f;
+				_controller.radius = .5f;
+				_controller.center = new Vector3 (0,0,0);
 				_saberAnimator.SetBool ("Crouched", false);
 				_saberAnimator.CrossFade ("Idle", .1f);
 			} else {
 				_controller.height = .5f;
+				_controller.radius = .01f;
+				_controller.center = new Vector3 (0,-.25f,0);
 				_mesh.localPosition = new Vector3 (0, -.25f, 0);
 				_mesh.localScale = new Vector3 (_meshDefaultScale.x, _meshDefaultScale.y * .5f, _meshDefaultScale.z);
 			}
