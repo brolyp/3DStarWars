@@ -29,29 +29,34 @@ public class CameraControl : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		_horizontal += Input.GetAxis ("Mouse X") * _hRotSpeed;
-		_vertical -= Input.GetAxis ("Mouse Y") * VerticalRotationSpeed;
+        if (Time.timeScale != 0f)
+        {
+		    _horizontal += Input.GetAxis ("Mouse X") * _hRotSpeed;
+		    _vertical -= Input.GetAxis ("Mouse Y") * VerticalRotationSpeed;
+        }
 	}
 
 	void LateUpdate () {
-
-		if(Input.GetAxis("Mouse ScrollWheel") < 0){
-			CameraDistance += 1f;
-			Debug.Log ("Up" + CameraDistance);
-			if (CameraDistance >= maxCameraDistance) {
-				CameraDistance = maxCameraDistance;
-			}
-		} else if(Input.GetAxis("Mouse ScrollWheel") > 0){
-			CameraDistance -= 1f;
-			Debug.Log ("Down" + CameraDistance);
-			if (CameraDistance <= minCameraDistance) {
-				CameraDistance = minCameraDistance;
-			}
-		}
-		_vertical = Mathf.Clamp(_vertical, -80f, 80f);
-		//Quaternion xRot = Quaternion.AngleAxis (_horizontal, Vector3.up);
-		Quaternion yRot = Quaternion.AngleAxis (_vertical, transform.right);
-		_camera.position = transform.position + yRot * transform.forward * -CameraDistance;
-		_camera.LookAt(transform.position);
+        if(Time.timeScale != 0f)
+        {
+		    if(Input.GetAxis("Mouse ScrollWheel") < 0){
+			    CameraDistance += 1f;
+			    Debug.Log ("Up" + CameraDistance);
+			    if (CameraDistance >= maxCameraDistance) {
+				    CameraDistance = maxCameraDistance;
+			    }
+		    } else if(Input.GetAxis("Mouse ScrollWheel") > 0){
+			    CameraDistance -= 1f;
+			    Debug.Log ("Down" + CameraDistance);
+			    if (CameraDistance <= minCameraDistance) {
+				    CameraDistance = minCameraDistance;
+			    }
+		    }
+		    _vertical = Mathf.Clamp(_vertical, -80f, 80f);
+		    //Quaternion xRot = Quaternion.AngleAxis (_horizontal, Vector3.up);
+		    Quaternion yRot = Quaternion.AngleAxis (_vertical, transform.right);
+		    _camera.position = transform.position + yRot * transform.forward * -CameraDistance;
+		    _camera.LookAt(transform.position);
+        }
 	}
 }

@@ -2,7 +2,7 @@ sceneSetups:
 <<<<<<< HEAD
 - path: Assets/James/James.unity
 =======
-- path: Assets/Dave/Dave.unity
->>>>>>> b7dc32905be81303cdd8dc61d24a97f3bb090cac
+- path: Assets/Vaughan/Tatooine.unity
+>>>>>>> 787e265d0af5da87090f4fcda72bd5aed6bdb10a
   isLoaded: 1
   isActive: 1
