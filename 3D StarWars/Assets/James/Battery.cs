@@ -20,10 +20,11 @@ public class Battery : MonoBehaviour {
             if (GetComponent<Renderer>().enabled == false)
             {
                 timeLeft -= Time.deltaTime;
-                if(timeLeft < 0)
+                if(timeLeft <= 0)
                 {
                     GetComponent<Renderer>().enabled = true;
                     GetComponent<Collider>().enabled = true;
+                    timeLeft = respawnTimer;
                 }
             }
         }
@@ -36,17 +37,24 @@ public class Battery : MonoBehaviour {
         {
             IHealable isHealable = other.GetComponent<IHealable>();
             if (isHealable != null)
+            {
                 isHealable.Heal(HealAmount);
+                timeLeft = respawnTimer;
+                GetComponent<Renderer>().enabled = false;
+                GetComponent<Collider>().enabled = false;
+            }
         }
         else if (HealAmount < 0)
         {
             IDamageable isDamagable = other.GetComponent<IDamageable>();
             if (isDamagable != null)
+            {
                 isDamagable.Damage(-HealAmount);
+                timeLeft = respawnTimer;
+                GetComponent<Renderer>().enabled = false;
+                GetComponent<Collider>().enabled = false;
+            }
         }
 
-        timeLeft = respawnTimer;
-        GetComponent<Renderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
     }
 }

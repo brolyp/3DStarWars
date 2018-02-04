@@ -128,4 +128,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealAmount: 20
-  respawnTimer: 10
+  respawnTimer: 35
