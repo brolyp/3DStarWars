@@ -15,8 +15,14 @@ public class PauseMenu : MonoBehaviour {
 	public bool lukeDied = false;
 	public bool touchLeia = false;
 
-	// Update is called once per frame
-	void Update () {
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }   
+
+    // Update is called once per frame
+    void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
@@ -26,7 +32,6 @@ public class PauseMenu : MonoBehaviour {
             {
                 Pause();                
             }
-
         }
 	}
 
@@ -34,18 +39,21 @@ public class PauseMenu : MonoBehaviour {
     {
         pauseMenuUI.SetActive(false);
         settingsMenuUI.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
 
     public void Pause()
     {
-
 		if (touchLeia == false && lukeDied == false) 
 		{
 			pauseMenuUI.SetActive (true);
 			Time.timeScale = 0f;
-			GameIsPaused = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            GameIsPaused = true;
 		}
     }
     
