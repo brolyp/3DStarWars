@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 	public int MaxEnergy = 100;
-	public bool overchargeable;
+	public bool Overchargeable;
 
 	private int MESH = 0, OVERCHARGEMESH = 2;
 	private int _overcharge;
@@ -17,7 +17,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 	// Use this for initialization
 	void Start () {
 		_mesh = transform.GetChild (MESH);
-		if(overchargeable)_oMesh = transform.GetChild (OVERCHARGEMESH);
+		if(Overchargeable)_oMesh = transform.GetChild (OVERCHARGEMESH);
 		_energy = MaxEnergy;		
 		_parent = transform.parent.gameObject.GetComponent<IKillable>();
 		_overcharge = 0;
@@ -60,7 +60,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 
 	public void Heal(int heal){
 		if (_energy == 100) {
-			if (!overchargeable) {
+			if (!Overchargeable) {
 				return;
 			}
 			_overcharge += heal;

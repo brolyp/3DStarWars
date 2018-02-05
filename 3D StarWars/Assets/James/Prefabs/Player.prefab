@@ -744,6 +744,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxEnergy: 100
+  Overchargeable: 1
+  _mesh: {fileID: 0}
 --- !u!114 &114621648893084662
 MonoBehaviour:
   m_ObjectHideFlags: 1
