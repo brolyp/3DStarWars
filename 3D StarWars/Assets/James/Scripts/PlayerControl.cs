@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, IInvincible, ICanEquip, ICanBlock {
-	private int MESH = 1, LIGHT_SABER = 2, BULLET_SPAWN = 3;
+	private int MESH = 1, LIGHT_SABER = 2, BULLET_SPAWN = 3, CAMERA = 0;
 	private enum SaberState {Idle, Blocking, Shooting};
 
 	public float GravityMod = 1.2f;
@@ -138,7 +138,9 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 	public 
 	void Kill(){
 		Debug.Log ("Player has been Killed!");
-		Destroy (this.gameObject, 0.0f);
+		Transform camera = _mesh = transform.GetChild (CAMERA);
+		camera.GetChild(1).gameObject.GetComponent<PauseMenu> ().loseGame ();
+		//Destroy (this.gameObject, 0.0f);
 	}
 
 	public 

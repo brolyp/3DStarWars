@@ -38,7 +38,7 @@ public class SaberControl : MonoBehaviour, IDamageable, IHealable {
 				try {
 					_parent.Kill ();
 				} catch {
-					Debug.Log ("exception caught");
+					Debug.Log ("on Luke Death exception caught");
 				}
 			} else {
 				float scale = _energy / 100f;

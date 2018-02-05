@@ -83,6 +83,10 @@ public class PauseMenu : MonoBehaviour {
 	{
 		if (lukeDied == false) 
 		{
+			Time.timeScale = 0f;
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+			GameIsPaused = true;
 			lukeDied = true;
 			lossMenuUI.SetActive(true);
 			Time.timeScale = 0f;
@@ -95,9 +99,12 @@ public class PauseMenu : MonoBehaviour {
 	{
 		if (touchLeia == false) 
 		{
+			Time.timeScale = 0f;
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+			GameIsPaused = true;
 			touchLeia = true;
 			winMenuUI.SetActive(true);
-			Time.timeScale = 0f;
 		}
 
 	}
