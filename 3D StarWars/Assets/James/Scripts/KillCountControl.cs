@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class KillCountControl : MonoBehaviour {
 
+	public int LeftOffset = 5;
+	public int TopOffset = 5;
 	public int SpriteOffset = 5;
 	public Sprite KillSprite;
 	private int _killCount;
@@ -21,8 +23,8 @@ public class KillCountControl : MonoBehaviour {
 		RectTransform t = GetComponent<RectTransform>(); 
 		_screenW = (int)t.rect.width;
 		_screenH = (int)t.rect.height;
-		_left = -_screenW / 2 + 55;
-		_top = _screenH / 2 - 25;
+		_left = -_screenW / 2 + LeftOffset;
+		_top = _screenH / 2 - TopOffset;
 		_next = new Vector3 (_left, _top, 0);
 	}
 	
@@ -47,7 +49,7 @@ public class KillCountControl : MonoBehaviour {
 			NewObj.SetActive(true); //Activate the GameObject
 
 			_next = new Vector3(_next.x + t.rect.width * _scale + SpriteOffset, _next.y, 0);
-			if (_next.x > -_left + SpriteOffset + t.rect.width * _scale) {
+			if (_next.x + LeftOffset > -_left + SpriteOffset + t.rect.width * _scale) {
 				_next = new Vector3 (_left, _next.y - t.rect.height * _scale - SpriteOffset, 0);
 			}
 		}

@@ -20,7 +20,7 @@ public interface IHealable {
 }
 
 public interface IInvincible {
-	IEnumerator Invincible (float time);
+	void Invincible (float time);
 }
 
 public interface IEnemyNotification

@@ -121,11 +121,13 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		}
 			
 		if (Input.GetKeyDown(KeyCode.P)){
+			Quaternion b = BulletSpawn.rotation;
+			b = b * Quaternion.AngleAxis (180f,Vector3.up);
 			var bullet = (GameObject)Instantiate (
 				BulletPrefab,
-				BulletSpawn.position,
-				BulletSpawn.rotation);
-			Block(bullet.transform, 10);
+				BulletSpawn.position + 5 * BulletSpawn.forward,
+				b);
+			
 		}
 		if (Input.GetKeyDown(KeyCode.O)){
 			Heal(10);
@@ -164,7 +166,10 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		
 	}
 
-	public IEnumerator Invincible(float time){
+	public void Invincible(float time){
+		StartCoroutine (InvincibleTime(time));
+	}
+	public IEnumerator InvincibleTime(float time){
 		_invincible = true;
 		yield return new WaitForSeconds (time);
 		_invincible = false;
