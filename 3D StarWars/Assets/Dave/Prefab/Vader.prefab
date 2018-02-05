@@ -38,9 +38,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4382354504334648}
   - component: {fileID: 54529493181272820}
+  - component: {fileID: 114705058294289352}
   - component: {fileID: 195511349239018968}
   - component: {fileID: 65841509219201866}
-  - component: {fileID: 114705058294289352}
   m_Layer: 9
   m_Name: Vader
   m_TagString: Enemy
@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4983766926666908}
   - component: {fileID: 135193724173190482}
-  - component: {fileID: 114975485542187052}
+  - component: {fileID: 114883598233022770}
   m_Layer: 0
   m_Name: perceptionTrigger
   m_TagString: Untagged
@@ -480,6 +480,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxEnergy: 100
+  Overchargeable: 0
+  _mesh: {fileID: 0}
 --- !u!114 &114705058294289352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -491,24 +493,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c81536ce5a784eb489cfae131f0dd049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fiflState: 1
+  cAIState: 0
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
-  ePT: {fileID: 114975485542187052}
+  bulletSpawnT: {fileID: 4337490038420304}
+  rifle: {fileID: 0}
+  batLocNear: {fileID: 0}
+  playerTransf: {fileID: 0}
+  bulletTransf: {fileID: 0}
+  vPerception: {fileID: 0}
   destPoint: 0
+  deaths: 0
+  lives: 3
   aimFuzz: 0
   aimRangeBottom: 0
   aimRangeTop: 0
   saveTime: 0
+  _player: {fileID: 0}
   bulletPrefab: {fileID: 1751252863170042, guid: 899bd6f5c1ecd074c94ac1794d6cc8e4,
     type: 2}
-  bulletSpawnT: {fileID: 4337490038420304}
-  rifle: {fileID: 0}
-  deaths: 0
-  lives: 3
-  batLocNear: {fileID: 0}
---- !u!114 &114975485542187052
+  playerInRange: 0
+  alertedToPlayer: 0
+  firedAt: 0
+--- !u!114 &114883598233022770
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -516,13 +524,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1726229232962040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae259b49982f8403d8a4470d6f1d5d76, type: 3}
+  m_Script: {fileID: 11500000, guid: ff6bcd4d5d9342144860b97214b150d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerInArea: 0
   pTrans: {fileID: 0}
-  exclamationPointFound: {fileID: 1333962455293422, guid: caad83aa2006e3f4e989cece39612fcd,
-    type: 2}
+  vControl: {fileID: 0}
 --- !u!135 &135193724173190482
 SphereCollider:
   m_ObjectHideFlags: 1

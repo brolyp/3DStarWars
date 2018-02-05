@@ -32,7 +32,12 @@ public class enemyPerceptionTrigger : MonoBehaviour {
 				if (hit.collider.gameObject.tag == "Player") 
 				{
 					if (Vector3.Dot (transform.forward, other.transform.position - transform.position) > 0) {
-						if(!eControl.alertedToPlayer) eControl.alertedToPlayer = true;
+						if (!eControl.alertedToPlayer)
+							eControl.alertedToPlayer = true;
+						eControl.playerTransf = other.transform;
+					} else if (Vector3.Distance (transform.position, other.transform.position) < 2.0f) {
+						if (!eControl.alertedToPlayer)
+							eControl.alertedToPlayer = true;
 						eControl.playerTransf = other.transform;
 					}
 				}

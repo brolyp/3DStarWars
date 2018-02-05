@@ -22,22 +22,8 @@ public class vaderPerception : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "Player")
-		{
-			vControl.playerInRange = true;
-			if (Physics.Raycast (transform.position, other.transform.position - transform.position, out hit,  10.0f )) 
-			{
-				if (hit.collider.gameObject.tag == "Player") 
-				{
-					if (Vector3.Dot (transform.forward, other.transform.position - transform.position) > 0) {
-						//instantiatedExclaimPF = Instantiate (exclamationPointFound, this.transform.position + new Vector3(0,1,0), Quaternion.identity, this.transform );
-						//Destroy (instantiatedExclaimPF,0.5f);
-					}
-				}
-			}
-		}
 		if (other.name == "Bullet(Clone)") {
-			Debug.Log ("Bullet Detected!");
+			//Debug.Log ("Bullet Detected!");
 			vControl.firedAt = true;
 			vControl.bulletTransf = other.transform;
 		}
@@ -66,7 +52,6 @@ public class vaderPerception : MonoBehaviour {
 		if(other.tag == "Player")
 		{
 			vControl.playerInRange = false;
-			//eControl.playerTransf = null;
 		}
 		if (other.name == "Bullet") {
 			vControl.firedAt = false;

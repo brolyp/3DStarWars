@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, ICanBlock {
-	public enum AISTATE { patrol, pursue, block, retreat, attack };
+	public enum AISTATE { patrol, pursue, block, retreat, attack, jump };
 	public AISTATE cAIState;
 
 	public Transform[] patrolPoints;
@@ -14,12 +14,14 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 	public Transform playerTransf;
 	public Transform bulletTransf;
 
+	Rigidbody rigbod;
 
 	public vaderPerception vPerception;
 
 	public int destPoint;
 	public int deaths = 0;
 	public int lives = 3;
+	public int retreatMultiplier = 3;
 
 	NavMeshAgent agent;
 
@@ -27,13 +29,18 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 	public float aimRangeBottom;
 	public float aimRangeTop;
 	public float saveTime;
+	float runSpeed;
+
+	public GameObject _player;
 	public GameObject bulletPrefab;
 	RaycastHit outHit;
 
-	private bool _invincible;
 	public bool playerInRange;
 	public bool alertedToPlayer;
 	public bool firedAt;
+	private bool _needHeal;
+	private bool _invincible;
+	private bool _canBlock;
 
 	private Transform _saber;
 	private SaberControl _saberControl;
@@ -44,6 +51,14 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 	void Start () {
 		vPerception = GetComponentInChildren<vaderPerception>();
 		agent = GetComponent<NavMeshAgent>();
+		_saber = transform.GetChild(1);
+		_saberControl = _saber.gameObject.GetComponent<SaberControl>();
+		_saberAnimator = _saber.GetComponent<Animator>();
+		_player = GameObject.FindWithTag ("Player");
+		rigbod = GetComponent<Rigidbody> ();
+
+		_canBlock = true;
+		runSpeed = agent.speed;
 		agent.autoBraking = false;
 		destPoint = 0;
 		aimFuzz = 15.0f;
@@ -51,10 +66,6 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 		aimRangeBottom = -1.5f;
 		saveTime = 0.0f;
 		NextPoint();
-		_saber = transform.GetChild(1);
-		_saberControl = _saber.gameObject.GetComponent<SaberControl>();
-		_saberAnimator = _saber.GetComponent<Animator>();
-
 	}
 	
 	// Update is called once per frame
@@ -62,12 +73,14 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 		switch (cAIState) {
 		case AISTATE.patrol:
 			//action
-			agent.stoppingDistance = 0.5f;
 			if (!agent.pathPending && agent.remainingDistance < 0.5f) {
 				NextPoint ();
 			}
 
 			//update
+			if (_needHeal)
+				cAIState = AISTATE.retreat;
+			
 			if (alertedToPlayer) {
 				cAIState = AISTATE.pursue;
 				agent.destination = playerTransf.position;
@@ -77,70 +90,71 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 			break;
 		case AISTATE.pursue:
 			//action
-			agent.destination = playerTransf.position;
+			if(playerTransf != null && !_needHeal)agent.destination = playerTransf.position;
+			else 
+			{
+				cAIState = AISTATE.patrol;
+				NextPoint ();
+			}
+
 			//update
 			if (agent.remainingDistance < 1.0f)
-				cAIState = AISTATE.attack;
+				//cAIState = AISTATE.attack;
 			if (firedAt)
 				cAIState = AISTATE.block;
 			break;
 		case AISTATE.block:
 			//action
-			agent.isStopped = true;
-			if (bulletTransf != null && Vector3.Distance (transform.position, bulletTransf.position) < 4) {
+			if (bulletTransf != null && Vector3.Distance (transform.position, bulletTransf.position) < 4 && _canBlock) {
 				Block (bulletTransf, 10);
 				firedAt = false;
 			}
 			//update
-			if (!firedAt && playerTransf != null) {
+			if (_needHeal) {
+				_canBlock = false;
+				agent.speed = retreatMultiplier * runSpeed;
+				agent.destination = batLocNear.position;
+				cAIState = AISTATE.retreat;
+			}
+			else if (!firedAt && playerTransf != null) 
+			{
 				cAIState = AISTATE.pursue;
-			} else if (!firedAt) {
-				cAIState = AISTATE.patrol;
+			} else if (!firedAt) 
+			{
+				if (Physics.Raycast (new Ray (transform.position, _player.transform.position - transform.position), out outHit)) {
+					if (outHit.collider.tag == "Player") {
+						if (Vector3.Dot (transform.forward, _player.transform.position - transform.position) > 0) 
+						{
+							cAIState = AISTATE.pursue;
+							playerTransf = _player.transform;
+						} 
+						else 
+						{
+							cAIState = AISTATE.patrol;
+						}
+					} 
+					else 
+					{
+						cAIState = AISTATE.patrol;
+					}
+				} 
+				else 
+				{
+					cAIState = AISTATE.patrol;
+				}
 			}
 			break;
 		case AISTATE.retreat:
 			//action
-
 			//update
 			break;
 		case AISTATE.attack:
 			//action
 			IDamageable player = playerTransf.GetComponentInParent<IDamageable> ();
 			player.Damage (102);
-
 			//update
 			break;
 		}
-		/*if (ePT.playerInArea) {
-			transform.LookAt (ePT.pTrans);
-			//Vector3 target = ePT.pTrans.position + (transform.position.normalized * 5);
-			agent.stoppingDistance = 5.0f;
-			agent.autoBraking = true;
-			agent.destination = ePT.pTrans.position;
-			if ((Time.time - saveTime) > 2f) {
-				float yRot = Random.Range(aimRangeBottom, aimRangeTop) * aimFuzz;
-				Quaternion aimRot = Quaternion.Euler (0, yRot, 0);
-				Vector3 target = aimRot * (ePT.pTrans.position - bulletSpawnT.position);
-				Debug.DrawRay (bulletSpawnT.position, target, Color.red);
-				if (Physics.Raycast (bulletSpawnT.position, target, out outHit, 7.0f)) {
-					if (outHit.collider.gameObject.tag == "Player") {
-						//Debug.Log ("Something Hit w/ RayCast:" + outHit.collider.gameObject.name);
-					}
-				}
-				saveTime = Time.time;
-
-				GameObject shotBullet = (GameObject)Instantiate (bulletPrefab, bulletSpawnT.position, Quaternion.identity);
-				shotBullet.transform.forward = target;
-				//Destroy (shotBullet, 2.0f);  - moved to Bullet.Awake for autonomy
-			}
-		} else if (!agent.pathPending && agent.remainingDistance < 0.5f) {
-			//agent.stoppingDistance = 0.5f;
-			NextPoint ();
-		} else 
-		{
-			agent.autoBraking = false;
-			agent.stoppingDistance = 0.5f;
-		}*/
 		
 	}
 
@@ -154,10 +168,16 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 
 	public void 
 	Kill(){
-		if (deaths < lives && cAIState == AISTATE.pursue) {
-			cAIState = AISTATE.retreat;
+		if (deaths < lives) {
 			deaths++;
+
+			agent.speed = retreatMultiplier * runSpeed;
+			agent.autoBraking = true;
 			agent.destination = batLocNear.position;
+			_needHeal = true;
+			_canBlock = false;
+
+			cAIState = AISTATE.retreat;
 		} else if (deaths == lives) {
 			Debug.Log ("Vader has been Killed!");
 			Destroy (this.gameObject, 0.0f);
@@ -173,21 +193,25 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 	}
 
 	public void Heal(int heal){
-		cAIState = AISTATE.pursue;
+		_needHeal = false;
+		_canBlock = true;
 		_saberControl.Heal (heal);
+		runSpeed *= 1.5f;
+		agent.speed = runSpeed;
+		agent.autoBraking = false;
+		cAIState = AISTATE.pursue;
 	}
 
 	public void
 	Block(Transform bullet, int damage)
 	{
-		agent.isStopped = true;
-		transform.LookAt (bullet);
-		_saberControl.Block (bullet);
-		Damage (10);
-		agent.isStopped = false;
+		if (_canBlock) {
+			agent.isStopped = true;
+			transform.LookAt (bullet);
+		}
+			_saberControl.Block (bullet);
+			Damage (10);
+			agent.isStopped = false;
+
 	}
-
-	//need get nearest capsule - list of all negative capsules in the area - accompanying list of 1 for up and 0 for bad
-
-	//movement option after healing
 }
