@@ -14,7 +14,7 @@ MonoBehaviour:
   m_PixelRect:
     serializedVersion: 2
     x: 775
-    y: 187
+    y: 163
     width: 901
     height: 807
   m_ShowMode: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 9}
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -62,8 +62,8 @@ MonoBehaviour:
     y: 0
     width: 901
     height: 807
-  m_MinSize: {x: 100, y: 122}
-  m_MaxSize: {x: 4000, y: 4022}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 122}
   m_MaxSize: {x: 4000, y: 4022}
   vertical: 0
-  controlID: 1917
+  controlID: 11
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 21
+  controlID: 76
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -159,8 +159,8 @@ MonoBehaviour:
     y: 0
     width: 284
     height: 487
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 22
+  controlID: 77
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 23
+  controlID: 78
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -322,8 +322,8 @@ MonoBehaviour:
     y: 0
     width: 864
     height: 487
-  m_MinSize: {x: 204, y: 221}
-  m_MaxSize: {x: 4004, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 22}
   m_Panes:
   - {fileID: 21}
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 775
-    y: 209
+    y: 185
     width: 901
     height: 785
   m_AnimEditor: {fileID: 0}
@@ -472,19 +472,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/James/Animations/Lightsaber
+    - Assets/Dave
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/James/Animations/Lightsaber
+  - Assets/Dave
   m_LastFoldersGridSize: -1
   m_LastProjectPath: /Users/J/Dev/538/3DStarWars/3D StarWars
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: fa370000
-    m_LastClickedID: 14330
-    m_ExpandedIDs: 000000002032000040320000583200006832000034330000a4330000ee3300002c3400005e3400008434000096340000a4340000ac340000c4340000d43400002c350000c8350000e0350000e2350000183600002a3600008a36000036370000743700009437000044380000483800005a3a00005c3a00005e3a0000ffffff7f
+    m_SelectedIDs: 88270000
+    m_LastClickedID: 10120
+    m_ExpandedIDs: 0000000034270000582700007a2700009227000086280000022900005a290000b0290000ea290000182a0000342a0000462a0000502a00006a2a00007e2a0000ec2a0000b42b0000d62b0000d82b0000162c00002a2c00009c2c00006a2d0000e62d0000ba2e0000d8300000da300000dc300000ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -512,7 +512,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002032000040320000583200006832000034330000a4330000ee3300002c3400005e3400008434000096340000a4340000ac340000c4340000d43400002c350000c8350000e0350000e2350000183600002a3600003637000060370000743700009437000044380000483800005a3a00005c3a00005e3a0000
+    m_ExpandedIDs: 0000000034270000582700007a2700009227000086280000022900005a290000b0290000ea290000182a0000342a0000462a0000502a00006a2a00007e2a0000ec2a0000b42b0000d62b0000d82b0000162c00002a2c00009c2c00006a2d0000b82d0000e62d0000ba2e0000be2e0000d8300000da300000dc300000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -628,28 +628,28 @@ MonoBehaviour:
     height: 466
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 7ed6ffff
-    m_LastClickedID: -10626
-    m_ExpandedIDs: 84d6ffff96d6ffff96dffffffce4ffff30e6ffff20f4ffff00000000ea380000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 66cbffff1afcffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Overseer
-      m_OriginalName: Overseer
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 14680
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 7}
     m_SearchString: 
   m_ExpandedScenes:
-  - James
+  - Dave
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -712,7 +712,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.08747158, y: 0.7655797, z: -0.10656774, w: 0.6283946}
     speed: 2
-    m_Value: {x: 0.08747158, y: 0.7655797, z: -0.10656774, w: 0.6283946}
+    m_Value: {x: 0.08747159, y: 0.7655797, z: -0.10656775, w: 0.62839466}
   m_Size:
     m_Target: 0.23636156
     speed: 2
@@ -749,8 +749,8 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: 286
-    y: 94
+    x: 2
+    y: 19
     width: 860
     height: 466
   m_MaximizeOnPlay: 0
