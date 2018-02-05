@@ -121,7 +121,11 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		}
 			
 		if (Input.GetKeyDown(KeyCode.P)){
-			Damage(10);
+			var bullet = (GameObject)Instantiate (
+				BulletPrefab,
+				BulletSpawn.position,
+				BulletSpawn.rotation);
+			Block(bullet.transform, 10);
 		}
 		if (Input.GetKeyDown(KeyCode.O)){
 			Heal(10);
@@ -150,8 +154,13 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 	public void
 	Block(Transform bTransf, int damage)
 	{
-		Damage (damage);
-		_saberControl.Block (bTransf);
+		if (!_invincible) {
+			if (!_saberAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Block")) {
+				_saberAnimator.Play ("Block");
+			}
+			_saberControl.Block (bTransf);
+			Damage (damage);
+		}
 		
 	}
 
