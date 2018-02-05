@@ -8,6 +8,12 @@ public class PauseMenu : MonoBehaviour {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     public GameObject settingsMenuUI;
+	public GameObject lossMenuUI;
+	public GameObject winMenuUI;
+
+
+	public bool lukeDied = false;
+	public bool touchLeia = false;
 
 	// Update is called once per frame
 	void Update () {
@@ -20,6 +26,7 @@ public class PauseMenu : MonoBehaviour {
             {
                 Pause();                
             }
+
         }
 	}
 
@@ -31,13 +38,25 @@ public class PauseMenu : MonoBehaviour {
         GameIsPaused = false;
     }
 
-    void Pause()
+    public void Pause()
     {
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        GameIsPaused = true;
+
+		if (touchLeia == false && lukeDied == false) 
+		{
+			pauseMenuUI.SetActive (true);
+			Time.timeScale = 0f;
+			GameIsPaused = true;
+		}
     }
     
+	public void Restart() 
+	{
+		Time.timeScale = 1f;
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+	}
+
+
     public void MainMenu()
     {
         Time.timeScale = 1f;
@@ -49,6 +68,31 @@ public class PauseMenu : MonoBehaviour {
         Debug.Log("QUITTING!");
         Application.Quit();
     }
+
+
+
+	public void loseGame ()
+	{
+		if (lukeDied == false) 
+		{
+			lukeDied = true;
+			lossMenuUI.SetActive(true);
+			Time.timeScale = 0f;
+		}
+
+	}
+
+
+	public void winGame ()
+	{
+		if (touchLeia == false) 
+		{
+			touchLeia = true;
+			winMenuUI.SetActive(true);
+			Time.timeScale = 0f;
+		}
+
+	}
 
 }
 
