@@ -1,8 +1,12 @@
 sceneSetups:
 <<<<<<< HEAD
+<<<<<<< HEAD
 - path: Assets/James/James.unity
 =======
 - path: Assets/Dave/Dave.unity
 >>>>>>> f5aeeb060375b29a0846a0c7e6067d3204148efc
+=======
+- path: Assets/Brock/MainMenu.unity
+>>>>>>> 182596495def263eae4cb40ceefb32a0377ca608
   isLoaded: 1
   isActive: 1
