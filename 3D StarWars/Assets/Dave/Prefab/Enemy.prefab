@@ -336,31 +336,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b577ec5285bb04f9eab96cc02e29a719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curAIState: 0
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
-  destPoint: 0
+  bulletSpawnT: {fileID: 4274454533720866}
+  rifle: {fileID: 4038343800820760}
+  playerTransf: {fileID: 0}
+  bulletPrefab: {fileID: 1751252863170042, guid: 899bd6f5c1ecd074c94ac1794d6cc8e4,
+    type: 2}
+  exclamationPointFound: {fileID: 1333962455293422, guid: caad83aa2006e3f4e989cece39612fcd,
+    type: 2}
+  lastKnownPos: {x: 0, y: 0, z: 0}
+  target: {x: 0, y: 0, z: 0}
   aimFuzz: 0
   aimRangeBottom: 0
   aimRangeTop: 0
-  saveTime: 0
-  bulletPrefab: {fileID: 1751252863170042, guid: 899bd6f5c1ecd074c94ac1794d6cc8e4,
-    type: 2}
-  bulletSpawnT: {fileID: 4274454533720866}
-  rifle: {fileID: 4038343800820760}
-  curAIState: 0
+  shootTimer: 0
+  ignoreDist: 30
+  searchTime: 0
+  destPoint: 0
   alertedToPlayer: 0
   playerInRange: 0
-  playerTransf: {fileID: 0}
-  lastKnownPos: {x: 0, y: 0, z: 0}
-  searchTimer: 0
-  ignoreDist: 20
-  exclamationPointFound: {fileID: 1333962455293422, guid: caad83aa2006e3f4e989cece39612fcd,
-    type: 2}
-  dist: 0
-  searchTime: 0
-  repositioning: 0
-  target: {x: 0, y: 0, z: 0}
+  distance: 0
 --- !u!135 &135140030308226864
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -371,7 +369,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195509595193177714
 NavMeshAgent:
