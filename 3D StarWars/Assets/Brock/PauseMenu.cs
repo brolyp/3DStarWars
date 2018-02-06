@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour {
     public GameObject settingsMenuUI;
 	public GameObject lossMenuUI;
 	public GameObject winMenuUI;
-	public TextMeshProUGUI pauseScore;
+    public TextMeshProUGUI pauseScore;
     public TextMeshProUGUI winScore;
     public TextMeshProUGUI loseScore;
 
@@ -56,7 +56,7 @@ public class PauseMenu : MonoBehaviour {
 			pauseScore.text = FindObjectOfType<KillCountControl> ().getKillCount().ToString();
             winScore.text = FindObjectOfType<KillCountControl>().getKillCount().ToString();
             loseScore.text = FindObjectOfType<KillCountControl>().getKillCount().ToString();
-            pauseMenuUI.SetActive (true);			
+            pauseMenuUI.SetActive (true);
 			Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -68,7 +68,9 @@ public class PauseMenu : MonoBehaviour {
 	{
 		Time.timeScale = 1f;
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
 	}
+
 
     public void MainMenu()
     {
@@ -81,7 +83,9 @@ public class PauseMenu : MonoBehaviour {
         Debug.Log("QUITTING!");
         Application.Quit();
     }
-    
+
+
+
 	public void loseGame ()
 	{
 		if (lukeDied == false) 
@@ -94,7 +98,9 @@ public class PauseMenu : MonoBehaviour {
 			lossMenuUI.SetActive(true);
 			Time.timeScale = 0f;
 		}
+
 	}
+
 
 	public void winGame ()
 	{
@@ -107,6 +113,8 @@ public class PauseMenu : MonoBehaviour {
 			touchLeia = true;
 			winMenuUI.SetActive(true);
 		}
+
 	}
+
 }
 
