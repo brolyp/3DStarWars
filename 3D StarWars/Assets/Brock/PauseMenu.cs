@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
@@ -10,7 +11,7 @@ public class PauseMenu : MonoBehaviour {
     public GameObject settingsMenuUI;
 	public GameObject lossMenuUI;
 	public GameObject winMenuUI;
-
+	public Text pauseScore;
 
 	public bool lukeDied = false;
 	public bool touchLeia = false;
@@ -49,6 +50,7 @@ public class PauseMenu : MonoBehaviour {
     {
 		if (touchLeia == false && lukeDied == false) 
 		{
+			pauseScore = FindObjectOfType<KillCountControl> ().getKillCount().ToString();
 			pauseMenuUI.SetActive (true);
 			Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
