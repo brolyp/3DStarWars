@@ -15,13 +15,7 @@ public class Victory : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-        if (Input.GetKey(KeyCode.G))
-        {
-            _deadVader = !_deadVader;
-        }
-
+	void Update () {        
         if (_deadVader)
         {
             CageDoor.GetComponent<Renderer>().enabled = false;

@@ -10,6 +10,7 @@ public class KillCountControl : MonoBehaviour {
 	public int SpriteOffset = 5;
 	public Sprite KillSprite;
 	private int _killCount;
+    public static int KillCount;
 	private int _screenW;
 	private int _screenH;
 	private int _left;

@@ -52,7 +52,7 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 		aimRangeBottom = -10f;
 		shootTimer = 0.0f;
 		searchTime = 0.0f;
-		alertedToPlayer = false;
+		alertedToPlayer = false;     
 
 		destPoint = 0;
 		NextPoint();

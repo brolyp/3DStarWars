@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PauseMenu : MonoBehaviour {
 
@@ -11,9 +12,11 @@ public class PauseMenu : MonoBehaviour {
     public GameObject settingsMenuUI;
 	public GameObject lossMenuUI;
 	public GameObject winMenuUI;
-	public Text pauseScore;
+	public TextMeshProUGUI pauseScore;
+    public TextMeshProUGUI winScore;
+    public TextMeshProUGUI loseScore;
 
-	public bool lukeDied = false;
+    public bool lukeDied = false;
 	public bool touchLeia = false;
 
     private void Start()
@@ -50,8 +53,10 @@ public class PauseMenu : MonoBehaviour {
     {
 		if (touchLeia == false && lukeDied == false) 
 		{
-			pauseScore = FindObjectOfType<KillCountControl> ().getKillCount().ToString();
-			pauseMenuUI.SetActive (true);
+			pauseScore.text = FindObjectOfType<KillCountControl> ().getKillCount().ToString();
+            winScore.text = FindObjectOfType<KillCountControl>().getKillCount().ToString();
+            loseScore.text = FindObjectOfType<KillCountControl>().getKillCount().ToString();
+            pauseMenuUI.SetActive (true);
 			Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -63,9 +68,7 @@ public class PauseMenu : MonoBehaviour {
 	{
 		Time.timeScale = 1f;
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
 	}
-
 
     public void MainMenu()
     {
@@ -78,9 +81,7 @@ public class PauseMenu : MonoBehaviour {
         Debug.Log("QUITTING!");
         Application.Quit();
     }
-
-
-
+    
 	public void loseGame ()
 	{
 		if (lukeDied == false) 
@@ -93,9 +94,7 @@ public class PauseMenu : MonoBehaviour {
 			lossMenuUI.SetActive(true);
 			Time.timeScale = 0f;
 		}
-
 	}
-
 
 	public void winGame ()
 	{
@@ -108,8 +107,6 @@ public class PauseMenu : MonoBehaviour {
 			touchLeia = true;
 			winMenuUI.SetActive(true);
 		}
-
 	}
-
 }
 
