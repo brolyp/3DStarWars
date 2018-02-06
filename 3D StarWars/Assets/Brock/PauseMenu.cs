@@ -56,7 +56,7 @@ public class PauseMenu : MonoBehaviour {
 			pauseScore.text = FindObjectOfType<KillCountControl> ().getKillCount().ToString();
             winScore.text = FindObjectOfType<KillCountControl>().getKillCount().ToString();
             loseScore.text = FindObjectOfType<KillCountControl>().getKillCount().ToString();
-            pauseMenuUI.SetActive (true);
+            pauseMenuUI.SetActive (true);			
 			Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
