@@ -88,18 +88,14 @@ public class PauseMenu : MonoBehaviour {
 
 	public void loseGame ()
 	{
-		if (lukeDied == false) 
-		{
-			Time.timeScale = 0f;
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
-			GameIsPaused = true;
-			lukeDied = true;
-			lossMenuUI.SetActive(true);
-			Time.timeScale = 0f;
-		}
-
-	}
+		Time.timeScale = 0f;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+		GameIsPaused = true;
+		lukeDied = true;
+		lossMenuUI.SetActive(true);
+		Time.timeScale = 0f;		
+    }
 
 
 	public void winGame ()
