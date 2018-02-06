@@ -36,6 +36,8 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 	public bool playerInRange;
 	bool startedTimer;
 
+	public float distance;
+
 	RaycastHit outHit;
 	Collider[] sphereHit;
 
@@ -45,9 +47,9 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 	void Start () {
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
-		aimFuzz = 15.0f;
-		aimRangeTop = 1.5f;
-		aimRangeBottom = -1.5f;
+		//aimFuzz = 15.0f;
+		aimRangeTop = 10.0f;
+		aimRangeBottom = -10f;
 		shootTimer = 0.0f;
 		searchTime = 0.0f;
 		alertedToPlayer = false;
@@ -91,12 +93,14 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 
 		case AIState.pursue:
 			//action
-			agent.stoppingDistance = 5.0f;
+			agent.stoppingDistance = 10.0f;
 			agent.autoBraking = true;
 			agent.destination = playerTransf.position;
 
+			distance = Vector3.Distance (this.transform.position, playerTransf.position);
+
 			//update
-			if (agent.remainingDistance <= 5.1) {
+			if (agent.remainingDistance <= 10) {
 				curAIState = AIState.attack;
 			}
 			if (Physics.Raycast(new Ray(transform.position, playerTransf.position - transform.position), out outHit)) 
@@ -115,9 +119,13 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 
 		case AIState.attack:
 			//action
+
+			distance = Vector3.Distance (this.transform.position, playerTransf.position);
 			transform.LookAt (playerTransf.position);
 			if ((Time.time - shootTimer) > 2f) {
-				float yRot = Random.Range (aimRangeBottom, aimRangeTop) * aimFuzz;
+				aimFuzz = Vector3.Distance (transform.position, playerTransf.position);
+				Mathf.Clamp (aimFuzz, 0f, 10f);
+				float yRot = Random.Range (aimRangeBottom, aimRangeTop);// * aimFuzz;
 				Quaternion aimRot = Quaternion.Euler (0, yRot, 0);
 				Vector3 target = aimRot * (playerTransf.position - bulletSpawnT.position);
 				shootTimer = Time.time;
@@ -127,16 +135,14 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 
 			Vector3 revToPlayer = transform.position - playerTransf.position;
 			if (Vector3.Distance (playerTransf.position, transform.position) < 4.0f && !agent.pathPending) {
-				target = transform.position + (revToPlayer.normalized * 4.5f);
-				instantiatedExclaimPF = Instantiate (exclamationPointFound, target, Quaternion.identity, this.transform);
-				Destroy (instantiatedExclaimPF, 0.2f);
+				target = transform.position + (revToPlayer.normalized * 5f);
 				if (agent.SetDestination (target))
 					Debug.Log ("Setting Destination has gone right?");
 				agent.stoppingDistance = 0.5f;
 			}
 
 			//update
-			if (agent.remainingDistance > 6.0f) {
+			if (agent.remainingDistance > 11.0f) {
 				curAIState = AIState.pursue;
 			}
 

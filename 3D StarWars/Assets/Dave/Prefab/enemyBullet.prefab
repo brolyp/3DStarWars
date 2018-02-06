@@ -324,6 +324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48876da6cdd564846ad74155290cc425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletSpeed: 48
+  BulletSpeed: 24
   ttl: 2
   AudioSource: {fileID: 82002831039127004}

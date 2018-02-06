@@ -8,8 +8,6 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 	public AISTATE cAIState;
 
 	public Transform[] patrolPoints;
-	public Transform bulletSpawnT;
-	public Transform rifle;
 	public Transform batLocNear;
 	public Transform playerTransf;
 	public Transform bulletTransf;
@@ -209,6 +207,7 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 			agent.isStopped = true;
 			transform.LookAt (bullet);
 		}
+		_saberAnimator.Play ("Block");
 			_saberControl.Block (bullet);
 			Damage (10);
 			agent.isStopped = false;

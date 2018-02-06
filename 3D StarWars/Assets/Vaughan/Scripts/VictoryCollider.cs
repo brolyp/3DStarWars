@@ -27,5 +27,7 @@ public class VictoryCollider : MonoBehaviour {
     private void WinGame()
     {
         PauseMenu.winGame();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
