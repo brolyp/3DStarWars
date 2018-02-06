@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, ICanBlock {
 	public enum AISTATE { patrol, pursue, block, retreat, attack, jump };
 	public AISTATE cAIState;
+	public KillCountControl KillCounter;
 
 	public Transform[] patrolPoints;
 	public Transform batLocNear;

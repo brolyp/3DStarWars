@@ -10,7 +10,7 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 	public AIState curAIState;
 
 	NavMeshAgent agent;
-
+	public static KillCountControl KillCounter;
 	public Transform[] patrolPoints;
 	public Transform bulletSpawnT;
 	public Transform rifle;
@@ -45,7 +45,7 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 
 	// Use this for initialization
 	void Start () {
-        agent = GetComponent<NavMeshAgent>();
+		agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
 		//aimFuzz = 15.0f;
 		aimRangeTop = 10.0f;
@@ -200,6 +200,7 @@ public class enemyController : MonoBehaviour, IDamageable, IKillable, IEnemyNoti
 	public void
 	Kill()
 	{	
+		KillCounter.AddKill (1);
 		Debug.Log ("Enemy has been Killed!");
 		Destroy (this.gameObject, 0.0f);
 	}

@@ -50,7 +50,7 @@ public class PauseMenu : MonoBehaviour {
     {
 		if (touchLeia == false && lukeDied == false) 
 		{
-			pauseScore = FindObjectOfType<KillCountControl> ().getKillCount().ToString();
+			pauseScore.text = FindObjectOfType<KillCountControl> ().getKillCount().ToString();
 			pauseMenuUI.SetActive (true);
 			Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;

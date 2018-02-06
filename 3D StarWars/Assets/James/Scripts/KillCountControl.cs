@@ -16,8 +16,11 @@ public class KillCountControl : MonoBehaviour {
 	private int _top;
 	private Vector3 _next;
 	private float _scale;
+
+
 	// Use this for initialization
 	void Start () {
+		enemyController.KillCounter = this;
 		_scale = .09f;
 		_killCount = 0;
 		RectTransform t = GetComponent<RectTransform>(); 
