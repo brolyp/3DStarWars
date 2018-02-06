@@ -17,6 +17,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 	public Transform BulletSpawn;
 	public Transform AimPoint;
 
+	private bool _running;
 	private Transform _shield;
 	private bool _invincible;
 	private bool _crouch;
@@ -84,7 +85,14 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		float deltaRotate = Input.GetAxis ("Mouse X") * PlayerRotSpeed;
 		transform.Rotate (0, deltaRotate, 0);
 
-		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * PlayerMoveSpeed;
+		float moveSpeed = PlayerMoveSpeed;
+		if (_isGrounded && Input.GetKey (KeyCode.LeftShift)) {
+			_running = true;
+			moveSpeed = 2 * PlayerMoveSpeed;
+		} else {
+			_running = false;
+		}
+		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * moveSpeed;
 		move = transform.rotation * move;
 
 		if (Input.GetKeyDown(KeyCode.Space) && _isGrounded) {
@@ -99,7 +107,7 @@ public class PlayerControl : MonoBehaviour, IDamageable, IKillable, IHealable, I
 		_controller.Move(move * Time.deltaTime);
 
 		if(Input.GetMouseButtonDown(0) ){
-			if (!_saberAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShootSaber")) {
+			if (!_running && !_saberAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShootSaber")) {
 				StartCoroutine (Shoot ());
 			}
 		}
