@@ -35,6 +35,11 @@ public class KillCountControl : MonoBehaviour {
 		}
 	}
 
+	public int getKillCount(){
+		return _killCount;
+	}
+
+
 	public void AddKill(int kill){
 		for (int i = 0; i < kill; i++) {
 			_killCount++;
