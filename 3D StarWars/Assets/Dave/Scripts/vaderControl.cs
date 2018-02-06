@@ -97,7 +97,7 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 
 			//update
 			if (agent.remainingDistance < 1.0f)
-				//cAIState = AISTATE.attack;
+				cAIState = AISTATE.attack;
 			if (firedAt)
 				cAIState = AISTATE.block;
 			break;
@@ -178,6 +178,7 @@ public class vaderControl : MonoBehaviour, IDamageable, IKillable, IHealable, IC
 			cAIState = AISTATE.retreat;
 		} else if (deaths == lives) {
 			Debug.Log ("Vader has been Killed!");
+            Victory._deadVader = true;
 			Destroy (this.gameObject, 0.0f);
 		}
 
